@@ -25,8 +25,9 @@ class PreloaderManager {
     // Apply theme to preloader immediately
     this.applyTheme();
     
-    // Prevent body scrolling
+    // Prevent body scrolling immediately
     document.body.classList.add('preloader-active');
+    document.body.style.overflow = 'hidden';
     
     // Start the loading sequence
     this.simulateLoading();
@@ -92,6 +93,7 @@ class PreloaderManager {
       
       // Re-enable body scrolling
       document.body.classList.remove('preloader-active');
+      document.body.style.overflow = '';
       
       // Trigger custom event for other scripts
       window.dispatchEvent(new CustomEvent('preloaderComplete', {

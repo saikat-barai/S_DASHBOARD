@@ -11,7 +11,7 @@
 html, body {
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
+  height: 100%;
 }
 
 /* Preloader Container */
@@ -50,12 +50,16 @@ html, body {
 
 /* Prevent body scroll when preloader is active */
 body.preloader-active {
-  overflow: hidden;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-  position: fixed;
-  width: 100%;
+  overflow: hidden !important;
+  height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: fixed !important;
+  width: 100% !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
 }
 
 /* Preloader content container */
@@ -63,55 +67,101 @@ body.preloader-active {
   text-align: center;
   max-width: 300px;
   width: 100%;
-  padding: 2rem;
+  padding: 3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 200px;
+  position: relative;
 }
 
-/* Spinner Animation */
+/* Ultra smooth background glow */
+.preloader-container::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: backgroundPulse 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  pointer-events: none;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Ultra Smooth Premium Spinner */
 .loading-spinner {
   position: relative;
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   margin: 0 auto 2rem;
-  animation: fadeInUp 0.2s ease-out 0.05s both;
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
   will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .spinner-ring {
   position: absolute;
   width: 100%;
   height: 100%;
-  border: 4px solid transparent;
+  border: 3px solid transparent;
   border-radius: 50%;
-  animation: spin 1.2s linear infinite;
+  animation: ultraSmoothSpin 2.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
   will-change: transform;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .spinner-ring:nth-child(1) {
-  border-top-color: #6366f1;
+  border-top: 3px solid #6366f1;
+  border-right: 3px solid rgba(99, 102, 241, 0.2);
   animation-delay: 0s;
+  animation-duration: 2.2s;
 }
 
 .spinner-ring:nth-child(2) {
-  border-right-color: #8b5cf6;
-  animation-delay: 0.2s;
-  width: 80%;
-  height: 80%;
-  top: 10%;
-  left: 10%;
+  border-right: 3px solid #8b5cf6;
+  border-bottom: 3px solid rgba(139, 92, 246, 0.2);
+  animation-delay: 0.3s;
+  animation-duration: 2.4s;
+  width: 85%;
+  height: 85%;
+  top: 7.5%;
+  left: 7.5%;
 }
 
 .spinner-ring:nth-child(3) {
-  border-bottom-color: #ec4899;
-  animation-delay: 0.4s;
-  width: 60%;
-  height: 60%;
-  top: 20%;
-  left: 20%;
+  border-bottom: 3px solid #ec4899;
+  border-left: 3px solid rgba(236, 72, 153, 0.2);
+  animation-delay: 0.6s;
+  animation-duration: 2.6s;
+  width: 70%;
+  height: 70%;
+  top: 15%;
+  left: 15%;
+}
+
+/* Ultra smooth center dot */
+.loading-spinner::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: ultraSmoothBreathe 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  box-shadow: 0 0 8px rgba(99, 102, 241, 0.3);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 
@@ -136,12 +186,50 @@ body.preloader-active {
 }
 
 
-@keyframes spin {
+@keyframes ultraSmoothSpin {
   0% {
     transform: rotate(0deg);
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes ultraSmoothBreathe {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.7;
+  }
+  25% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.3);
+    opacity: 1;
+  }
+  75% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 0.9;
+  }
+}
+
+@keyframes backgroundPulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.2;
+  }
+  25% {
+    transform: translate(-50%, -50%) scale(1.05);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 0.6;
+  }
+  75% {
+    transform: translate(-50%, -50%) scale(1.05);
+    opacity: 0.4;
   }
 }
 
