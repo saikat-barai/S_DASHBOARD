@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S Admin Dashboard</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Apply theme immediately before any content renders
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+      
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      
+      // Debug: Log theme application
+      console.log('Theme applied:', theme, 'Dark class present:', document.documentElement.classList.contains('dark'));
+    })();
+
+    // Tailwind config: enable dark mode via class and extend as needed
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              300: '#a5b4fc',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81'
+            }
+          },
+          boxShadow: {
+            card: '0 1px 2px 0 rgb(0 0 0 / 0.06), 0 1px 3px 0 rgb(0 0 0 / 0.1)'
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/preloader.css" />
+</head>
+<body class="h-full bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+
+  <!-- Preloader -->
+  <div id="preloader" class="preloader">
+    <div class="preloader-container">
+      <!-- Loading Spinner -->
+      <div class="loading-spinner">
+        <div class="spinner-ring"></div>
+        <div class="spinner-ring"></div>
+        <div class="spinner-ring"></div>
+      </div>
+    </div>
+  </div>
+  <div id="app" class="min-h-screen flex">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-72 transform bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transition-all duration-300 ease-in-out -translate-x-full lg:translate-x-0" data-sidebar-state="expanded">
+      <div class="h-16 flex items-center gap-2 px-4 border-b border-gray-200 dark:border-gray-700">
+        <div class="w-9 h-9 rounded-lg bg-brand-600 text-white grid place-items-center font-bold">S</div>
+        <span class="font-semibold">S Admin</span>
+      </div>
+      <nav class="p-4 space-y-1 text-sm">
+        <!-- Dashboard - No submenu -->
+        <a href="index.html" class="flex items-center gap-3 px-3 py-2 rounded-md bg-brand-50 text-brand-700 dark:bg-gray-700 dark:text-white">
+          <span class="i">🏠</span>
+          <span>Dashboard</span>
+        </a>
+
+        <!-- Category - With submenu -->
+        <div class="menu-item" data-menu="products">
+          <button class="flex items-center justify-between w-full px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200">
+            <div class="flex items-center gap-3">
+              <span class="i">📦</span>
+              <span>Category</span>
+            </div>
+            <svg class="w-4 h-4 transition-transform duration-200 menu-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="submenu ml-6 mt-1 space-y-1 hidden">
+            <a href="" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+              <span class="i">📋</span>
+              <span>All Category</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+              <span class="i">➕</span>
+              <span>Add Category</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+              <span class="i">🏷️</span>
+              <span>Categories</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+              <span class="i">📊</span>
+              <span>Inventory</span>
+            </a>
+          </div>
+        </div>
+        <!-- Ei Elements - With submenu -->
+        <div class="menu-item" data-menu="products">
+          <button class="flex items-center justify-between w-full px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200">
+            <div class="flex items-center gap-3">
+              <span class="i">📦</span>
+              <span>Ui Elements</span>
+            </div>
+            <svg class="w-4 h-4 transition-transform duration-200 menu-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="submenu ml-6 mt-1 space-y-1 hidden">
+            <a href="" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+              <span class="i">📋</span>
+              <span>Alert</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+              <span class="i">➕</span>
+              <span>Modal</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+              <span class="i">🏷️</span>
+              <span>Categories</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+              <span class="i">📊</span>
+              <span>Inventory</span>
+            </a>
+          </div>
+        </div>
+        <!-- Products - With submenu -->
+        <div class="menu-item" data-menu="products">
+          <button class="flex items-center justify-between w-full px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200">
+            <div class="flex items-center gap-3">
+              <span class="i">📦</span>
+              <span>Products</span>
+            </div>
+            <svg class="w-4 h-4 transition-transform duration-200 menu-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="submenu ml-6 mt-1 space-y-1 hidden">
+            <a href="" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+              <span class="i">📋</span>
+              <span>All Products</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+              <span class="i">➕</span>
+              <span>Add Product</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+              <span class="i">🏷️</span>
+              <span>Categories</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+              <span class="i">📊</span>
+              <span>Inventory</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Orders - With submenu -->
+        <div class="menu-item" data-menu="orders">
+          <button class="flex items-center justify-between w-full px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200">
+            <div class="flex items-center gap-3">
+              <span class="i">🛒</span>
+              <span>Orders</span>
+            </div>
+            <svg class="w-4 h-4 transition-transform duration-200 menu-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="submenu ml-6 mt-1 space-y-1 hidden">
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+              <span class="i">📋</span>
+              <span>All Orders</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+              <span class="i">⏳</span>
+              <span>Pending</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+              <span class="i">🚚</span>
+              <span>Shipped</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+              <span class="i">✅</span>
+              <span>Completed</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+              <span class="i">❌</span>
+              <span>Cancelled</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Customers - With submenu and sub-submenu -->
+        <div class="menu-item" data-menu="customers">
+          <button class="flex items-center justify-between w-full px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200">
+            <div class="flex items-center gap-3">
+              <span class="i">👥</span>
+              <span>Customers</span>
+            </div>
+            <svg class="w-4 h-4 transition-transform duration-200 menu-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="submenu ml-6 mt-1 space-y-1 hidden">
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+              <span class="i">👤</span>
+              <span>All Customers</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+              <span class="i">➕</span>
+              <span>Add Customer</span>
+            </a>
+            
+            <!-- Customer Management - Sub-submenu -->
+            <div class="menu-item" data-menu="customer-management">
+              <button class="flex items-center justify-between w-full px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200">
+                <div class="flex items-center gap-3">
+                  <span class="i">⚙️</span>
+                  <span>Management</span>
+                </div>
+                <svg class="w-4 h-4 transition-transform duration-200 menu-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+              <div class="submenu ml-6 mt-1 space-y-1 hidden">
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+                  <span class="i">📊</span>
+                  <span>Customer Analytics</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+                  <span class="i">🏷️</span>
+                  <span>Segments</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+                  <span class="i">📧</span>
+                  <span>Email Campaigns</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+                  <span class="i">💬</span>
+                  <span>Support Tickets</span>
+                </a>
+              </div>
+            </div>
+
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+              <span class="i">💬</span>
+              <span>Support</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Analytics - With submenu and sub-submenu -->
+        <div class="menu-item" data-menu="analytics">
+          <button class="flex items-center justify-between w-full px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200">
+            <div class="flex items-center gap-3">
+              <span class="i">📈</span>
+              <span>Analytics</span>
+            </div>
+            <svg class="w-4 h-4 transition-transform duration-200 menu-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="submenu ml-6 mt-1 space-y-1 hidden">
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+              <span class="i">📊</span>
+              <span>Overview</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+              <span class="i">💰</span>
+              <span>Revenue</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+              <span class="i">🛒</span>
+              <span>Sales</span>
+            </a>
+            
+            <!-- Reports - Sub-submenu -->
+            <div class="menu-item" data-menu="reports">
+              <button class="flex items-center justify-between w-full px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200">
+                <div class="flex items-center gap-3">
+                  <span class="i">📋</span>
+                  <span>Reports</span>
+                </div>
+                <svg class="w-4 h-4 transition-transform duration-200 menu-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+              <div class="submenu ml-6 mt-1 space-y-1 hidden">
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+                  <span class="i">📈</span>
+                  <span>Sales Report</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+                  <span class="i">👥</span>
+                  <span>User Report</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+                  <span class="i">📦</span>
+                  <span>Product Report</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+                  <span class="i">📊</span>
+                  <span>Custom Report</span>
+                </a>
+              </div>
+            </div>
+
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+              <span class="i">👥</span>
+              <span>Users</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Settings - With submenu and sub-submenu -->
+        <div class="menu-item" data-menu="settings">
+          <button class="flex items-center justify-between w-full px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200">
+            <div class="flex items-center gap-3">
+              <span class="i">⚙️</span>
+              <span>Settings</span>
+            </div>
+            <svg class="w-4 h-4 transition-transform duration-200 menu-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="submenu ml-6 mt-1 space-y-1 hidden">
+            <a href="" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+              <span class="i">👤</span>
+              <span>Profile</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+              <span class="i">🔐</span>
+              <span>Security</span>
+            </a>
+            
+            <!-- System Settings - Sub-submenu -->
+            <div class="menu-item" data-menu="system-settings">
+              <button class="flex items-center justify-between w-full px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200">
+                <div class="flex items-center gap-3">
+                  <span class="i">⚙️</span>
+                  <span>System</span>
+                </div>
+                <svg class="w-4 h-4 transition-transform duration-200 menu-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+              <div class="submenu ml-6 mt-1 space-y-1 hidden">
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+                  <span class="i">🌐</span>
+                  <span>General</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+                  <span class="i">🗄️</span>
+                  <span>Database</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+                  <span class="i">🔧</span>
+                  <span>Maintenance</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+                  <span class="i">📊</span>
+                  <span>Logs</span>
+                </a>
+              </div>
+            </div>
+
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+              <span class="i">🎨</span>
+              <span>Appearance</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+              <span class="i">🔔</span>
+              <span>Notifications</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main content -->
+    <div id="mainContent" class="flex-1 flex flex-col min-w-0 transition-all duration-300 ease-in-out lg:ml-72">
+      <!-- Topbar -->
+      <header class="h-16 flex items-center justify-between gap-2 px-4 lg:px-6 bg-white/70 dark:bg-gray-900/70 backdrop-blur supports-[backdrop-filter]:bg-white/50 sticky top-0 z-30 border-b border-gray-200 dark:border-gray-700">
+        <div class="flex items-center gap-2">
+          <!-- Mobile sidebar toggle (hamburger menu) -->
+          <button id="sidebarToggle" class="p-2 -ml-2 lg:hidden rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="Toggle sidebar">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+              <path fill-rule="evenodd" d="M3.75 5.25a.75.75 0 0 1 .75-.75h15a.75.75 0 0 1 0 1.5H4.5a.75.75 0 0 1-.75-.75Zm0 6a.75.75 0 0 1 .75-.75h15a.75.75 0 0 1 0 1.5H4.5a.75.75 0 0 1-.75-.75Zm0 6a.75.75 0 0 1 .75-.75h15a.75.75 0 0 1 0 1.5H4.5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd"/>
+            </svg>
+          </button>
+          
+          <!-- Desktop sidebar toggle -->
+          <button id="desktopSidebarToggle" class="hidden lg:flex p-2 -ml-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="Toggle sidebar">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+              <path fill-rule="evenodd" d="M3.75 5.25a.75.75 0 0 1 .75-.75h15a.75.75 0 0 1 0 1.5H4.5a.75.75 0 0 1-.75-.75Zm0 6a.75.75 0 0 1 .75-.75h15a.75.75 0 0 1 0 1.5H4.5a.75.75 0 0 1-.75-.75Zm0 6a.75.75 0 0 1 .75-.75h15a.75.75 0 0 1 0 1.5H4.5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd"/>
+            </svg>
+          </button>
+          <div class="hidden md:flex items-center">
+            <div class="relative">
+              <input type="text" placeholder="Search..." class="w-72 pl-9 pr-3 py-2 rounded-md bg-gray-100 dark:bg-gray-800 border border-transparent focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900" />
+              <span class="absolute inset-y-0 left-0 pl-2 grid place-items-center text-gray-400">🔍</span>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="themeToggle" class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800" aria-label="Toggle theme">🌗</button>
+          <div class="relative group">
+            <button class="relative p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200" aria-label="Messages">
+              💬
+              <span class="absolute -top-0.5 -right-0.5 w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+            </button>
+            
+            <!-- Message Card -->
+            <div class="message-card absolute right-0 top-full mt-3 w-96 bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 z-50 opacity-0 invisible transition-all duration-300 backdrop-blur-sm">
+              <!-- Header -->
+              <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-700 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 rounded-t-xl">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background-color: var(--message-100);">
+                      <span class="text-sm" style="color: var(--message-500);">💬</span>
+                    </div>
+                    <div>
+                      <h3 class="font-semibold text-gray-900 dark:text-white text-base">Messages</h3>
+                      <p class="text-xs text-gray-500 dark:text-gray-400">Recent conversations</p>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs text-white px-2.5 py-1 rounded-full font-medium shadow-sm" style="background-color: var(--message-500);">2 unread</span>
+                    <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Messages List -->
+              <div class="max-h-80 overflow-y-auto">
+                <!-- Message 1 -->
+                <a href="#" class="group/msg flex items-start gap-4 px-6 py-4 hover:bg-green-50 dark:hover:bg-green-900/20 border-l-4 border-green-500 transition-all duration-200">
+                  <div class="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/msg:scale-110 transition-transform">
+                    <span class="text-green-600 dark:text-green-400 text-lg">👤</span>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-start justify-between">
+                      <div>
+                        <p class="text-sm font-semibold text-gray-900 dark:text-white group-hover/msg:text-green-700 dark:group-hover/msg:text-green-300 transition-colors">Sarah Johnson</p>
+                        <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Hey! Can we discuss the project timeline?</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-500 mt-1">5 minutes ago</p>
+                      </div>
+                      <span class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-1.5"></span>
+                    </div>
+                  </div>
+                </a>
+
+                <!-- Message 2 -->
+                <a href="#" class="group/msg flex items-start gap-4 px-6 py-4 hover:bg-blue-50 dark:hover:bg-blue-900/20 border-l-4 border-blue-500 transition-all duration-200">
+                  <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/msg:scale-110 transition-transform">
+                    <span class="text-blue-600 dark:text-blue-400 text-lg">👨‍💼</span>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-start justify-between">
+                      <div>
+                        <p class="text-sm font-semibold text-gray-900 dark:text-white group-hover/msg:text-blue-700 dark:group-hover/msg:text-blue-300 transition-colors">Mike Chen</p>
+                        <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">The client meeting went great!</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-500 mt-1">1 hour ago</p>
+                      </div>
+                      <span class="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0 mt-1.5"></span>
+                    </div>
+                  </div>
+                </a>
+
+                <!-- Message 3 -->
+                <a href="#" class="group/msg flex items-start gap-4 px-6 py-4 hover:bg-purple-50 dark:hover:bg-purple-900/20 border-l-4 border-purple-500 transition-all duration-200">
+                  <div class="w-10 h-10 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/msg:scale-110 transition-transform">
+                    <span class="text-purple-600 dark:text-purple-400 text-lg">👩‍💻</span>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-start justify-between">
+                      <div>
+                        <p class="text-sm font-semibold text-gray-900 dark:text-white group-hover/msg:text-purple-700 dark:group-hover/msg:text-purple-300 transition-colors">Emma Wilson</p>
+                        <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Code review is ready for your feedback</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-500 mt-1">2 hours ago</p>
+                      </div>
+                      <span class="w-2 h-2 bg-gray-400 rounded-full flex-shrink-0 mt-1.5"></span>
+                    </div>
+                  </div>
+                </a>
+
+                <!-- Message 4 -->
+                <a href="#" class="group/msg flex items-start gap-4 px-6 py-4 hover:bg-orange-50 dark:hover:bg-orange-900/20 border-l-4 border-orange-500 transition-all duration-200">
+                  <div class="w-10 h-10 bg-orange-100 dark:bg-orange-900/30 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/msg:scale-110 transition-transform">
+                    <span class="text-orange-600 dark:text-orange-400 text-lg">👨‍🔧</span>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-start justify-between">
+                      <div>
+                        <p class="text-sm font-semibold text-gray-900 dark:text-white group-hover/msg:text-orange-700 dark:group-hover/msg:text-orange-300 transition-colors">David Rodriguez</p>
+                        <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Server maintenance completed successfully</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-500 mt-1">3 hours ago</p>
+                      </div>
+                      <span class="w-2 h-2 bg-gray-400 rounded-full flex-shrink-0 mt-1.5"></span>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <!-- Footer -->
+              <div class="px-6 py-4 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 rounded-b-xl">
+                <div class="flex items-center justify-between">
+                  <a href="#" class="group/btn relative inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white rounded-lg shadow-sm hover:shadow-md transition-all duration-200 transform hover:scale-105" style="background: linear-gradient(to right, var(--message-600), var(--message-700));">
+                    <span>View all messages</span>
+                    <svg class="w-4 h-4 transition-transform group-hover/btn:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                    <div class="absolute inset-0 rounded-lg opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 blur-sm -z-10" style="background: linear-gradient(to right, var(--message-600), var(--message-700));"></div>
+                  </a>
+                  <button class="group/mark relative text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-all duration-200 px-3 py-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <span class="relative z-10">Mark all as read</span>
+                    <div class="absolute inset-0 bg-gray-100 dark:bg-gray-700 rounded-md opacity-0 group-hover/mark:opacity-100 transition-opacity duration-200"></div>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="relative group">
+            <button class="relative p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200" aria-label="Notifications">
+              🔔
+              <span class="absolute -top-0.5 -right-0.5 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+            </button>
+            
+            <!-- Notification Card -->
+            <div class="notification-card absolute right-0 top-full mt-3 w-96 bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 z-50 opacity-0 invisible transition-all duration-300 backdrop-blur-sm">
+              <!-- Header -->
+              <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-700 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 rounded-t-xl">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                      <span class="text-blue-600 dark:text-blue-400 text-sm">🔔</span>
+                    </div>
+                    <div>
+                      <h3 class="font-semibold text-gray-900 dark:text-white text-base">Notifications</h3>
+                      <p class="text-xs text-gray-500 dark:text-gray-400">Recent updates</p>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs bg-red-500 text-white px-2.5 py-1 rounded-full font-medium shadow-sm">3 new</span>
+                    <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Notifications List -->
+              <div class="max-h-80 overflow-y-auto">
+                <!-- New Order Notification -->
+                <a href="#" class="group/notif flex items-start gap-4 px-6 py-4 hover:bg-blue-50 dark:hover:bg-blue-900/20 border-l-4 border-blue-500 transition-all duration-200">
+                  <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/notif:scale-110 transition-transform">
+                    <span class="text-blue-600 dark:text-blue-400 text-lg">🛒</span>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-start justify-between">
+                      <div>
+                        <p class="text-sm font-semibold text-gray-900 dark:text-white group-hover/notif:text-blue-700 dark:group-hover/notif:text-blue-300 transition-colors">New Order Received</p>
+                        <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Order #12345 from John Doe</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-500 mt-1">$299.99 • 2 minutes ago</p>
+                      </div>
+                      <span class="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0 mt-1.5"></span>
+                    </div>
+                  </div>
+                </a>
+
+                <!-- Payment Notification -->
+                <a href="#" class="group/notif flex items-start gap-4 px-6 py-4 hover:bg-green-50 dark:hover:bg-green-900/20 border-l-4 border-green-500 transition-all duration-200">
+                  <div class="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/notif:scale-110 transition-transform">
+                    <span class="text-green-600 dark:text-green-400 text-lg">💳</span>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-start justify-between">
+                      <div>
+                        <p class="text-sm font-semibold text-gray-900 dark:text-white group-hover/notif:text-green-700 dark:group-hover/notif:text-green-300 transition-colors">Payment Completed</p>
+                        <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Order #12344 payment received</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-500 mt-1">$149.99 • 5 minutes ago</p>
+                      </div>
+                      <span class="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-1.5"></span>
+                    </div>
+                  </div>
+                </a>
+
+                <!-- Stock Alert Notification -->
+                <a href="#" class="group/notif flex items-start gap-4 px-6 py-4 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 border-l-4 border-yellow-500 transition-all duration-200">
+                  <div class="w-10 h-10 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/notif:scale-110 transition-transform">
+                    <span class="text-yellow-600 dark:text-yellow-400 text-lg">⚠️</span>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-start justify-between">
+                      <div>
+                        <p class="text-sm font-semibold text-gray-900 dark:text-white group-hover/notif:text-yellow-700 dark:group-hover/notif:text-yellow-300 transition-colors">Low Stock Alert</p>
+                        <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Product "Widget A" is running low</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-500 mt-1">Only 5 items left • 1 hour ago</p>
+                      </div>
+                      <span class="w-2 h-2 bg-yellow-500 rounded-full flex-shrink-0 mt-1.5"></span>
+                    </div>
+                  </div>
+                </a>
+
+                <!-- System Update Notification -->
+                <a href="#" class="group/notif flex items-start gap-4 px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 border-l-4 border-gray-300 dark:border-gray-600 transition-all duration-200">
+                  <div class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/notif:scale-110 transition-transform">
+                    <span class="text-gray-600 dark:text-gray-400 text-lg">⚙️</span>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-start justify-between">
+                      <div>
+                        <p class="text-sm font-semibold text-gray-900 dark:text-white group-hover/notif:text-gray-700 dark:group-hover/notif:text-gray-300 transition-colors">System Update</p>
+                        <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Dashboard updated to v2.1</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-500 mt-1">New features available • 2 hours ago</p>
+                      </div>
+                      <span class="w-2 h-2 bg-gray-400 rounded-full flex-shrink-0 mt-1.5"></span>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <!-- Footer -->
+              <div class="px-6 py-4 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 rounded-b-xl">
+                <div class="flex items-center justify-between">
+                  <a href="#" class="group/btn relative inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 transform hover:scale-105">
+                    <span>View all notifications</span>
+                    <svg class="w-4 h-4 transition-transform group-hover/btn:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                    <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 blur-sm -z-10"></div>
+                  </a>
+                  <button class="group/mark relative text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-all duration-200 px-3 py-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <span class="relative z-10">Mark all as read</span>
+                    <div class="absolute inset-0 bg-gray-100 dark:bg-gray-700 rounded-md opacity-0 group-hover/mark:opacity-100 transition-opacity duration-200"></div>
+          </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="relative group">
+            <div class="w-8 h-8 rounded-full overflow-hidden cursor-pointer hover:ring-2 hover:ring-brand-500 hover:ring-offset-2 transition-all duration-200">
+              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=face" 
+                   alt="Profile" 
+                   class="w-full h-full object-cover">
+            </div>
+            
+            <!-- Profile Card -->
+            <div class="profile-card absolute right-0 top-full mt-2 w-64 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+              <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                <div class="flex items-center gap-3">
+                  <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" 
+                       alt="Profile" 
+                       class="w-10 h-10 rounded-full object-cover">
+                  <div>
+                    <h3 class="font-semibold text-gray-900 dark:text-white">Alex Kumar</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">alex@example.com</p>
+                  </div>
+                </div>
+              </div>
+              <div class="py-2">
+                <a href="" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                  <span class="text-lg">👤</span>
+                  <span>Profile</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                  <span class="text-lg">⚙️</span>
+                  <span>Settings</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                  <span class="text-lg">🚪</span>
+                  <span>Sign Out</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content area -->
+      <main class="p-4 lg:p-6 space-y-6">
+        <!-- Page Header -->
+        <div class="flex items-center justify-between">
+          <div>
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">UI Elements</h1>
+            <p class="text-gray-600 dark:text-gray-400 mt-1">Comprehensive collection of reusable UI components</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <button class="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+              <span class="mr-2">📋</span>
+              Copy Code
+            </button>
+            <button class="px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-colors">
+              <span class="mr-2">🎨</span>
+              Customize
+            </button>
+          </div>
+        </div>
+
+        <!-- Alerts Section -->
+        <section class="space-y-4">
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-card border border-gray-100 dark:border-gray-700">
+            <h2 class="text-lg font-semibold mb-4">Alerts</h2>
+            <div class="space-y-4">
+              <!-- Success Alert -->
+              <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0">
+                    <span class="text-green-400 text-xl">✅</span>
+                  </div>
+                  <div class="ml-3">
+                    <h3 class="text-sm font-medium text-green-800 dark:text-green-200">Success!</h3>
+                    <div class="mt-2 text-sm text-green-700 dark:text-green-300">
+                      <p>Your changes have been saved successfully.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Error Alert -->
+              <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0">
+                    <span class="text-red-400 text-xl">❌</span>
+                  </div>
+                  <div class="ml-3">
+                    <h3 class="text-sm font-medium text-red-800 dark:text-red-200">Error!</h3>
+                    <div class="mt-2 text-sm text-red-700 dark:text-red-300">
+                      <p>There was an error processing your request. Please try again.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Warning Alert -->
+              <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0">
+                    <span class="text-yellow-400 text-xl">⚠️</span>
+                  </div>
+                  <div class="ml-3">
+                    <h3 class="text-sm font-medium text-yellow-800 dark:text-yellow-200">Warning!</h3>
+                    <div class="mt-2 text-sm text-yellow-700 dark:text-yellow-300">
+                      <p>Please review your information before proceeding.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Info Alert -->
+              <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0">
+                    <span class="text-blue-400 text-xl">ℹ️</span>
+                  </div>
+                  <div class="ml-3">
+                    <h3 class="text-sm font-medium text-blue-800 dark:text-blue-200">Information</h3>
+                    <div class="mt-2 text-sm text-blue-700 dark:text-blue-300">
+                      <p>This is some helpful information for you.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Professional Button System -->
+        <section class="space-y-4">
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-card border border-gray-100 dark:border-gray-700">
+            <h2 class="text-lg font-semibold mb-4">Professional Button System</h2>
+            <div class="space-y-8">
+              <!-- Button Variants -->
+              <div>
+                <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-4">Button Variants</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div class="space-y-3">
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">Primary</h4>
+                    <div class="space-y-2">
+                      <button class="btn btn-primary btn-sm">Primary Small</button>
+                      <button class="btn btn-primary btn-md">Primary Medium</button>
+                      <button class="btn btn-primary btn-lg">Primary Large</button>
+                    </div>
+                  </div>
+                  
+                  <div class="space-y-3">
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">Success</h4>
+                    <div class="space-y-2">
+                      <button class="btn btn-success btn-sm">Success Small</button>
+                      <button class="btn btn-success btn-md">Success Medium</button>
+                      <button class="btn btn-success btn-lg">Success Large</button>
+                    </div>
+                  </div>
+                  
+                  <div class="space-y-3">
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">Danger</h4>
+                    <div class="space-y-2">
+                      <button class="btn btn-danger btn-sm">Danger Small</button>
+                      <button class="btn btn-danger btn-md">Danger Medium</button>
+                      <button class="btn btn-danger btn-lg">Danger Large</button>
+                    </div>
+                  </div>
+                  
+                  <div class="space-y-3">
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">Warning</h4>
+                    <div class="space-y-2">
+                      <button class="btn btn-warning btn-sm">Warning Small</button>
+                      <button class="btn btn-warning btn-md">Warning Medium</button>
+                      <button class="btn btn-warning btn-lg">Warning Large</button>
+                    </div>
+                  </div>
+                  
+                  <div class="space-y-3">
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">Info</h4>
+                    <div class="space-y-2">
+                      <button class="btn btn-info btn-sm">Info Small</button>
+                      <button class="btn btn-info btn-md">Info Medium</button>
+                      <button class="btn btn-info btn-lg">Info Large</button>
+                    </div>
+                  </div>
+                  
+                  <div class="space-y-3">
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">Secondary</h4>
+                    <div class="space-y-2">
+                      <button class="btn btn-secondary btn-sm">Secondary Small</button>
+                      <button class="btn btn-secondary btn-md">Secondary Medium</button>
+                      <button class="btn btn-secondary btn-lg">Secondary Large</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Button Styles -->
+              <div>
+                <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-4">Button Styles</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div class="space-y-3">
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">Outline</h4>
+                    <div class="space-y-2">
+                      <button class="btn btn-outline btn-sm">Outline Small</button>
+                      <button class="btn btn-outline btn-md">Outline Medium</button>
+                      <button class="btn btn-outline btn-lg">Outline Large</button>
+                    </div>
+                  </div>
+                  
+                  <div class="space-y-3">
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">Ghost</h4>
+                    <div class="space-y-2">
+                      <button class="btn btn-ghost btn-sm">Ghost Small</button>
+                      <button class="btn btn-ghost btn-md">Ghost Medium</button>
+                      <button class="btn btn-ghost btn-lg">Ghost Large</button>
+                    </div>
+                  </div>
+                  
+                  <div class="space-y-3">
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">Link</h4>
+                    <div class="space-y-2">
+                      <button class="btn btn-link btn-sm">Link Small</button>
+                      <button class="btn btn-link btn-md">Link Medium</button>
+                      <button class="btn btn-link btn-lg">Link Large</button>
+                    </div>
+                  </div>
+                  
+                  <div class="space-y-3">
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">Icon Buttons</h4>
+                    <div class="space-y-2">
+                      <button class="btn btn-primary btn-icon btn-sm">+</button>
+                      <button class="btn btn-success btn-icon btn-md">✓</button>
+                      <button class="btn btn-danger btn-icon btn-lg">×</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Button States -->
+              <div>
+                <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-4">Button States</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div class="space-y-3">
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">Normal</h4>
+                    <div class="space-y-2">
+                      <button class="btn btn-primary btn-md">Normal Button</button>
+                      <button class="btn btn-success btn-md">Success Button</button>
+                      <button class="btn btn-danger btn-md">Danger Button</button>
+                    </div>
+                  </div>
+                  
+                  <div class="space-y-3">
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">Loading</h4>
+                    <div class="space-y-2">
+                      <button class="btn btn-primary btn-md btn-loading">Loading Button</button>
+                      <button class="btn btn-success btn-md btn-loading">Loading Success</button>
+                      <button class="btn btn-danger btn-md btn-loading">Loading Danger</button>
+                    </div>
+                  </div>
+                  
+                  <div class="space-y-3">
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">Disabled</h4>
+                    <div class="space-y-2">
+                      <button class="btn btn-primary btn-md" disabled>Disabled Button</button>
+                      <button class="btn btn-success btn-md" disabled>Disabled Success</button>
+                      <button class="btn btn-danger btn-md" disabled>Disabled Danger</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Button Groups -->
+              <div>
+                <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-4">Button Groups</h3>
+                <div class="space-y-4">
+                  <div class="btn-group">
+                    <button class="btn btn-primary btn-md">First</button>
+                    <button class="btn btn-primary btn-md">Second</button>
+                    <button class="btn btn-primary btn-md">Third</button>
+                  </div>
+                  
+                  <div class="btn-group">
+                    <button class="btn btn-outline btn-md">Previous</button>
+                    <button class="btn btn-outline btn-md">Next</button>
+                  </div>
+                  
+                  <div class="btn-group">
+                    <button class="btn btn-success btn-md">Save</button>
+                    <button class="btn btn-secondary btn-md">Cancel</button>
+                    <button class="btn btn-danger btn-md">Delete</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Special Buttons -->
+              <div>
+                <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-4">Special Buttons</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div class="space-y-3">
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">With Badge</h4>
+                    <div class="space-y-2">
+                      <button class="btn btn-primary btn-md btn-badge" data-badge="3">Messages</button>
+                      <button class="btn btn-danger btn-md btn-badge" data-badge="12">Notifications</button>
+                      <button class="btn btn-success btn-md btn-badge btn-badge-success" data-badge="99+">Updates</button>
+                      <button class="btn btn-warning btn-md btn-badge btn-badge-warning" data-badge="5">Alerts</button>
+                      <button class="btn btn-info btn-md btn-badge btn-badge-info" data-badge="2">Info</button>
+                    </div>
+                  </div>
+                  
+                  <div class="space-y-3">
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">Floating Action</h4>
+                    <div class="space-y-2">
+                      <button class="btn btn-primary btn-icon btn-lg">+</button>
+                      <p class="text-xs text-gray-500 dark:text-gray-400">Large icon button (FAB removed from showcase)</p>
+                    </div>
+                  </div>
+                  
+                  <div class="space-y-3">
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">With Icons</h4>
+                    <div class="space-y-2">
+                      <button class="btn btn-primary btn-md">
+                        <span>📁</span>
+                        Upload File
+                      </button>
+                      <button class="btn btn-success btn-md">
+                        <span>💾</span>
+                        Save Changes
+                      </button>
+                      <button class="btn btn-danger btn-md">
+                        <span>🗑️</span>
+                        Delete Item
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Enhanced Button Features -->
+              <div>
+                <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-4">Enhanced Features</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div class="space-y-3">
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">Basic Shimmer</h4>
+                    <div class="space-y-2">
+                      <button class="btn btn-primary btn-md btn-shimmer">Basic Shimmer</button>
+                      <button class="btn btn-md btn-shimmer-rainbow">Rainbow Shimmer</button>
+                      <button class="btn btn-md btn-shimmer-gold">Gold Shimmer</button>
+                      <button class="btn btn-md btn-shimmer-purple">Purple Shimmer</button>
+                      <button class="btn btn-md btn-shimmer-cyan">Cyan Shimmer</button>
+                      <button class="btn btn-md btn-shimmer-pink">Pink Shimmer</button>
+                    </div>
+                  </div>
+                  
+                  <div class="space-y-3">
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">Nature Themes</h4>
+                    <div class="space-y-2">
+                      <button class="btn btn-md btn-shimmer-ocean">Ocean Shimmer</button>
+                      <button class="btn btn-md btn-shimmer-sunset">Sunset Shimmer</button>
+                      <button class="btn btn-md btn-shimmer-fire">Fire Shimmer</button>
+                      <button class="btn btn-md btn-shimmer-ice">Ice Shimmer</button>
+                    </div>
+                  </div>
+                  
+                  <div class="space-y-3">
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">Cosmic Effects</h4>
+                    <div class="space-y-2">
+                      <button class="btn btn-md btn-shimmer-galaxy">Galaxy Shimmer</button>
+                      <button class="btn btn-md btn-shimmer-cosmic">Cosmic Shimmer</button>
+                      <button class="btn btn-md btn-shimmer-holographic">Holographic</button>
+                      <button class="btn btn-md btn-shimmer-gradient">Gradient Shimmer</button>
+                    </div>
+                  </div>
+                  
+                  <div class="space-y-3">
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">Special Effects</h4>
+                    <div class="space-y-2">
+                      <button class="btn btn-md btn-shimmer-neon">Neon Shimmer</button>
+                      <button class="btn btn-md btn-shimmer-glass">Glass Shimmer</button>
+                      <button class="btn btn-primary btn-md btn-pulse">Pulse Effect</button>
+                      <button class="btn btn-success btn-md btn-bounce">Bounce Effect</button>
+                    </div>
+                  </div>
+                  
+                  <div class="space-y-3">
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">Icon Buttons</h4>
+                    <div class="space-y-2">
+                      <button class="btn btn-primary btn-icon btn-md">+</button>
+                      <button class="btn btn-success btn-icon btn-md">✓</button>
+                      <button class="btn btn-danger btn-icon btn-md">×</button>
+                      <button class="btn btn-warning btn-icon btn-md">!</button>
+                    </div>
+                  </div>
+                  
+                  <div class="space-y-3">
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">Gradient Buttons</h4>
+                    <div class="space-y-2">
+                      <button class="btn btn-primary btn-md">Primary Gradient</button>
+                      <button class="btn btn-success btn-md">Success Gradient</button>
+                      <button class="btn btn-danger btn-md">Danger Gradient</button>
+                      <button class="btn btn-warning btn-md">Warning Gradient</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Shimmer Showcase -->
+              <div>
+                <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-4">Shimmer Button Showcase</h3>
+                <div class="space-y-6">
+                  <!-- Different Sizes -->
+                  <div>
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide mb-3">Different Sizes</h4>
+                    <div class="flex flex-wrap gap-3 items-center">
+                      <button class="btn btn-shimmer-rainbow btn-xs">XS Rainbow</button>
+                      <button class="btn btn-shimmer-gold btn-sm">SM Gold</button>
+                      <button class="btn btn-shimmer-cyan btn-md">MD Cyan</button>
+                      <button class="btn btn-shimmer-fire btn-lg">LG Fire</button>
+                      <button class="btn btn-shimmer-cosmic btn-xl">XL Cosmic</button>
+                    </div>
+                  </div>
+                  
+                  <!-- With Icons -->
+                  <div>
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide mb-3">With Icons</h4>
+                    <div class="flex flex-wrap gap-3">
+                      <button class="btn btn-shimmer-ocean btn-md">
+                        <span>🌊</span>
+                        Ocean Wave
+                      </button>
+                      <button class="btn btn-shimmer-sunset btn-md">
+                        <span>🌅</span>
+                        Sunset View
+                      </button>
+                      <button class="btn btn-shimmer-galaxy btn-md">
+                        <span>🌌</span>
+                        Galaxy Explorer
+                      </button>
+                      <button class="btn btn-shimmer-neon btn-md">
+                        <span>⚡</span>
+                        Neon Power
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <!-- With Badges -->
+                  <div>
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide mb-3">With Badges</h4>
+                    <div class="flex flex-wrap gap-3">
+                      <button class="btn btn-shimmer-gradient btn-md btn-badge" data-badge="3">Gradient Saikat</button>
+                      <button class="btn btn-shimmer-holographic btn-md btn-badge" data-badge="99+">Holographic</button>
+                      <button class="btn btn-shimmer-ice btn-md btn-badge" data-badge="12">Ice Cool</button>
+                      <button class="btn btn-shimmer-purple btn-md btn-badge" data-badge="5">Purple</button>
+                    </div>
+                  </div>
+                  
+                  <!-- Button Groups -->
+                  <div>
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide mb-3">Shimmer Groups</h4>
+                    <div class="space-y-3">
+                      <div class="btn-group">
+                        <button class="btn btn-shimmer-ocean btn-md">Ocean</button>
+                        <button class="btn btn-shimmer-sunset btn-md">Sunset</button>
+                        <button class="btn btn-shimmer-fire btn-md">Fire</button>
+                      </div>
+                      <div class="btn-group">
+                        <button class="btn btn-shimmer-galaxy btn-md">Galaxy</button>
+                        <button class="btn btn-shimmer-cosmic btn-md">Cosmic</button>
+                        <button class="btn btn-shimmer-holographic btn-md">Holographic</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Usage Examples -->
+              <div>
+                <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-4">Usage Examples</h3>
+                <div class="bg-gray-50 dark:bg-gray-900 rounded-lg p-4">
+                  <h4 class="text-sm font-medium text-gray-800 dark:text-gray-200 mb-2">HTML Examples:</h4>
+                  <pre class="text-xs text-gray-600 dark:text-gray-400 overflow-x-auto"><code>&lt;!-- Basic Shimmer Button --&gt;
+&lt;button class="btn btn-primary btn-md btn-shimmer"&gt;Basic Shimmer&lt;/button&gt;
+
+&lt;!-- Rainbow Shimmer Button --&gt;
+&lt;button class="btn btn-md btn-shimmer-rainbow"&gt;Rainbow Shimmer&lt;/button&gt;
+
+&lt;!-- Gold Shimmer Button --&gt;
+&lt;button class="btn btn-md btn-shimmer-gold"&gt;Gold Shimmer&lt;/button&gt;
+
+&lt;!-- Ocean Shimmer with Icon --&gt;
+&lt;button class="btn btn-md btn-shimmer-ocean"&gt;
+  &lt;span&gt;🌊&lt;/span&gt;
+  Ocean Wave
+&lt;/button&gt;
+
+&lt;!-- Cosmic Shimmer with Badge --&gt;
+&lt;button class="btn btn-md btn-shimmer-cosmic btn-badge" data-badge="5"&gt;Cosmic&lt;/button&gt;
+
+&lt;!-- Holographic Shimmer --&gt;
+&lt;button class="btn btn-md btn-shimmer-holographic"&gt;Holographic&lt;/button&gt;
+
+&lt;!-- Glass Shimmer --&gt;
+&lt;button class="btn btn-md btn-shimmer-glass"&gt;Glass Shimmer&lt;/button&gt;
+
+&lt;!-- Neon Shimmer --&gt;
+&lt;button class="btn btn-md btn-shimmer-neon"&gt;Neon Shimmer&lt;/button&gt;</code></pre>
+                </div>
+              </div>
+
+              <!-- Responsive Test Section -->
+              <div>
+                <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-4">Responsive Button Test</h3>
+                <div class="space-y-6">
+                  <!-- Icon Buttons Responsive Test -->
+                  <div>
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide mb-3">Icon Buttons (Should maintain size on mobile)</h4>
+                    <div class="flex flex-wrap gap-3 items-center">
+                      <button class="btn btn-primary btn-icon btn-xs">+</button>
+                      <button class="btn btn-success btn-icon btn-sm">✓</button>
+                      <button class="btn btn-danger btn-icon btn-md">×</button>
+                      <button class="btn btn-warning btn-icon btn-lg">!</button>
+                      <button class="btn btn-info btn-icon btn-xl">?</button>
+                    </div>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">These should remain circular and maintain their size on mobile devices.</p>
+                  </div>
+                  
+                  <!-- Regular Buttons Responsive Test -->
+                  <div>
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide mb-3">Regular Buttons (Should be full-width on mobile)</h4>
+                    <div class="space-y-2">
+                      <button class="btn btn-primary btn-md">Primary Button</button>
+                      <button class="btn btn-success btn-md">Success Button</button>
+                      <button class="btn btn-danger btn-md">Danger Button</button>
+                    </div>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">These should become full-width on mobile devices (≤640px).</p>
+                  </div>
+                  
+                  <!-- Shimmer Buttons Responsive Test -->
+                  <div>
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide mb-3">Shimmer Buttons (Should be full-width on mobile)</h4>
+                    <div class="space-y-2">
+                      <button class="btn btn-shimmer-rainbow btn-md">Rainbow Shimmer</button>
+                      <button class="btn btn-shimmer-gold btn-md">Gold Shimmer</button>
+                      <button class="btn btn-shimmer-ocean btn-md">Ocean Shimmer</button>
+                    </div>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">These should become full-width on mobile devices while maintaining shimmer effects.</p>
+                  </div>
+                  
+                  <!-- Mixed Button Groups -->
+                  <div>
+                    <h4 class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide mb-3">Mixed Button Groups</h4>
+                    <div class="space-y-3">
+                      <div class="flex flex-wrap gap-2 items-center">
+                        <button class="btn btn-primary btn-icon btn-sm">+</button>
+                        <button class="btn btn-success btn-sm">Add Item</button>
+                        <button class="btn btn-danger btn-icon btn-sm">×</button>
+                      </div>
+                      <div class="btn-group">
+                        <button class="btn btn-primary btn-md">First</button>
+                        <button class="btn btn-primary btn-md">Second</button>
+                        <button class="btn btn-primary btn-md">Third</button>
+                      </div>
+                    </div>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Icon buttons should maintain size, regular buttons should stack vertically on mobile.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- CSS Variables Reference -->
+              <div>
+                <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-4">CSS Variables for Customization</h3>
+                <div class="bg-gray-50 dark:bg-gray-900 rounded-lg p-4">
+                  <h4 class="text-sm font-medium text-gray-800 dark:text-gray-200 mb-2">Available CSS Variables:</h4>
+                  <pre class="text-xs text-gray-600 dark:text-gray-400 overflow-x-auto"><code>/* Button Colors */
+--btn-primary-bg: linear-gradient(135deg, #6366f1, #4f46e5);
+--btn-primary-hover: linear-gradient(135deg, #4f46e5, #4338ca);
+--btn-primary-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.25);
+
+/* Button Animations */
+--btn-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+--btn-scale-hover: scale(1.02);
+--btn-translate-hover: translateY(-2px);
+
+/* Button Shadows */
+--btn-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+--btn-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+--btn-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+/* Focus States */
+--btn-focus-ring: 0 0 0 3px rgba(99, 102, 241, 0.2);
+--btn-focus-ring-offset: 2px;</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Forms Section -->
+        <section class="space-y-4">
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-card border border-gray-100 dark:border-gray-700">
+            <h2 class="text-lg font-semibold mb-4">Form Elements</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <!-- Input Fields -->
+              <div class="space-y-4">
+                <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300">Input Fields</h3>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Full Name</label>
+                  <input type="text" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent dark:bg-gray-700 dark:text-white" placeholder="Enter your name">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email</label>
+                  <input type="email" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent dark:bg-gray-700 dark:text-white" placeholder="Enter your email">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Password</label>
+                  <input type="password" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent dark:bg-gray-700 dark:text-white" placeholder="Enter your password">
+                </div>
+              </div>
+
+              <!-- Select and Textarea -->
+              <div class="space-y-4">
+                <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300">Other Elements</h3>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Country</label>
+                  <select class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent dark:bg-gray-700 dark:text-white">
+                    <option>Select Country</option>
+                    <option>United States</option>
+                    <option>Canada</option>
+                    <option>United Kingdom</option>
+                    <option>Germany</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Message</label>
+                  <textarea rows="3" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent dark:bg-gray-700 dark:text-white" placeholder="Enter your message"></textarea>
+                </div>
+                <div class="flex items-center">
+                  <input type="checkbox" class="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded">
+                  <label class="ml-2 block text-sm text-gray-700 dark:text-gray-300">I agree to the terms and conditions</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Cards Section -->
+        <section class="space-y-4">
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-card border border-gray-100 dark:border-gray-700">
+            <h2 class="text-lg font-semibold mb-4">Cards</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <!-- Basic Card -->
+              <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 shadow-sm">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Basic Card</h3>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">This is a basic card component with simple content.</p>
+              </div>
+
+              <!-- Card with Image -->
+              <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden shadow-sm">
+                <div class="h-32 bg-gradient-to-r from-brand-500 to-brand-600 flex items-center justify-center">
+                  <span class="text-white text-2xl">🖼️</span>
+                </div>
+                <div class="p-4">
+                  <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Card with Image</h3>
+                  <p class="text-gray-600 dark:text-gray-400 text-sm">This card includes a header image area.</p>
+                </div>
+              </div>
+
+              <!-- Card with Actions -->
+              <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 shadow-sm">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Card with Actions</h3>
+                <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">This card includes action buttons.</p>
+                <div class="flex gap-2">
+                  <button class="px-3 py-1 text-xs bg-brand-600 text-white rounded hover:bg-brand-700 transition-colors">Action</button>
+                  <button class="px-3 py-1 text-xs border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Progress and Loading -->
+        <section class="space-y-4">
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-card border border-gray-100 dark:border-gray-700">
+            <h2 class="text-lg font-semibold mb-4">Progress & Loading</h2>
+            <div class="space-y-6">
+              <!-- Progress Bars -->
+              <div>
+                <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Progress Bars</h3>
+                <div class="space-y-3">
+                  <div>
+                    <div class="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-1">
+                      <span>Basic Progress</span>
+                      <span>75%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                      <div class="bg-brand-600 h-2 rounded-full" style="width: 75%"></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-1">
+                      <span>Success Progress</span>
+                      <span>100%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                      <div class="bg-green-600 h-2 rounded-full" style="width: 100%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Loading States -->
+              <div>
+                <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Loading States</h3>
+                <div class="flex items-center gap-4">
+                  <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-brand-600"></div>
+                  <span class="text-sm text-gray-600 dark:text-gray-400">Loading...</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Badges and Tags -->
+        <section class="space-y-4">
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-card border border-gray-100 dark:border-gray-700">
+            <h2 class="text-lg font-semibold mb-4">Badges & Tags</h2>
+            <div class="space-y-4">
+              <div>
+                <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Status Badges</h3>
+                <div class="flex flex-wrap gap-2">
+                  <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Active</span>
+                  <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">Inactive</span>
+                  <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">Pending</span>
+                  <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">New</span>
+                </div>
+              </div>
+              <div>
+                <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Number Badges</h3>
+                <div class="flex items-center gap-4">
+                  <div class="relative">
+                    <span class="text-lg">🔔</span>
+                    <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                  </div>
+                  <div class="relative">
+                    <span class="text-lg">💬</span>
+                    <span class="absolute -top-2 -right-2 bg-green-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">12</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Modals Section -->
+        <section class="space-y-4">
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-card border border-gray-100 dark:border-gray-700">
+            <h2 class="text-lg font-semibold mb-4">Modals</h2>
+            <div class="flex flex-wrap gap-3">
+              <button onclick="openModal('basicModal')" class="px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-colors">Basic Modal</button>
+              <button onclick="openModal('confirmModal')" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">Confirm Modal</button>
+              <button onclick="openModal('largeModal')" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">Large Modal</button>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- Modal Components -->
+      <!-- Basic Modal -->
+      <div id="basicModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+          <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full">
+            <div class="p-6">
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Basic Modal</h3>
+              <p class="text-gray-600 dark:text-gray-400 mb-6">This is a basic modal dialog. You can put any content here.</p>
+              <div class="flex justify-end gap-3">
+                <button onclick="closeModal('basicModal')" class="px-4 py-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">Cancel</button>
+                <button onclick="closeModal('basicModal')" class="px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-colors">Confirm</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Confirm Modal -->
+      <div id="confirmModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+          <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full">
+            <div class="p-6">
+              <div class="flex items-center mb-4">
+                <span class="text-red-500 text-2xl mr-3">⚠️</span>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Confirm Action</h3>
+              </div>
+              <p class="text-gray-600 dark:text-gray-400 mb-6">Are you sure you want to perform this action? This cannot be undone.</p>
+              <div class="flex justify-end gap-3">
+                <button onclick="closeModal('confirmModal')" class="px-4 py-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">Cancel</button>
+                <button onclick="closeModal('confirmModal')" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Large Modal -->
+      <div id="largeModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+          <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-2xl w-full">
+            <div class="p-6">
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Large Modal</h3>
+              <div class="space-y-4">
+                <p class="text-gray-600 dark:text-gray-400">This is a larger modal with more content space.</p>
+                <div class="grid grid-cols-2 gap-4">
+                  <input type="text" placeholder="First Name" class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 dark:bg-gray-700 dark:text-white">
+                  <input type="text" placeholder="Last Name" class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 dark:bg-gray-700 dark:text-white">
+                </div>
+                <textarea rows="3" placeholder="Additional notes..." class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-500 dark:bg-gray-700 dark:text-white"></textarea>
+              </div>
+              <div class="flex justify-end gap-3 mt-6">
+                <button onclick="closeModal('largeModal')" class="px-4 py-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">Cancel</button>
+                <button onclick="closeModal('largeModal')" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="px-4 lg:px-6 pb-6 text-xs text-gray-500 dark:text-gray-400">
+        <p>© <span id="year"></span> S Admin. All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="assets/js/preloader.js"></script>
+  <script src="assets/js/app.js"></script>
+  
+  
+  <!-- UI Elements JavaScript -->
+  <script>
+    // Modal functions - Define immediately
+    window.openModal = function(modalId) {
+      console.log('Opening modal:', modalId); // Debug log
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        console.log('Modal opened successfully'); // Debug log
+      } else {
+        console.error('Modal not found:', modalId); // Debug log
+      }
+    };
+
+    window.closeModal = function(modalId) {
+      console.log('Closing modal:', modalId); // Debug log
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+        console.log('Modal closed successfully'); // Debug log
+      }
+    };
+
+    // Initialize when DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOM loaded, initializing modal events'); // Debug log
+      
+      
+      // Close modal when clicking outside
+      document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('fixed') && e.target.classList.contains('inset-0')) {
+          e.target.classList.add('hidden');
+          document.body.style.overflow = 'auto';
+        }
+      });
+
+      // Close modal with Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          const openModals = document.querySelectorAll('.fixed.inset-0:not(.hidden)');
+          openModals.forEach(modal => {
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+          });
+        }
+      });
+
+      console.log('Modal events initialized'); // Debug log
+    });
+  </script>
+</body>
+</html>
+
+
