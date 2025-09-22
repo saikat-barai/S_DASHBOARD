@@ -12,6 +12,7 @@ window.Dashboard = {
       this.initResponsive();
       this.initSmartMenu();
       this.initPageAnimations();
+      this.initModal();
     },
 
     // Sidebar toggle functionality
@@ -1106,6 +1107,71 @@ window.Dashboard = {
             navigator.vibrate(10);
           }
         });
+      });
+    },
+
+    // Modal functionality
+    initModal: function() {
+      const backdrop = document.getElementById('modalBackdrop');
+      const openButtons = document.querySelectorAll('[data-modal-open]');
+      const closeButtons = document.querySelectorAll('[data-modal-close]');
+
+      if (!backdrop) return;
+
+      const openModal = (targetSelector) => {
+        const target = targetSelector ? document.querySelector(targetSelector) : document.querySelector('.sadmin-modal');
+        if (!target) return;
+        backdrop.classList.add('show');
+        backdrop.classList.remove('hidden');
+        target.classList.remove('closing');
+        target.classList.add('show');
+        target.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+        // focus first focusable
+        const firstFocusable = target.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (firstFocusable) firstFocusable.focus();
+      };
+
+      const closeModal = (target) => {
+        const active = target || document.querySelector('.sadmin-modal.show');
+        if (!active) return;
+        active.classList.add('closing');
+        backdrop.classList.remove('show');
+        setTimeout(() => {
+          active.classList.remove('show', 'closing');
+          active.classList.add('hidden');
+          backdrop.classList.add('hidden');
+          document.body.classList.remove('overflow-hidden');
+        }, 300);
+      };
+
+      openButtons.forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetSelector = btn.getAttribute('data-modal-open');
+          openModal(targetSelector);
+        });
+      });
+
+      closeButtons.forEach((btn) => {
+        btn.addEventListener('click', () => closeModal());
+      });
+
+      backdrop.addEventListener('click', () => closeModal());
+
+      // Close when clicking outside the dialog (on the modal overlay itself)
+      const modalOverlays = document.querySelectorAll('.sadmin-modal');
+      modalOverlays.forEach((overlay) => {
+        overlay.addEventListener('click', (e) => {
+          // If the click is directly on the overlay (not inside the dialog), close it
+          if (e.target === overlay) {
+            closeModal(overlay);
+          }
+        });
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
       });
     },
 

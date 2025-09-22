@@ -3930,3 +3930,586 @@ button[aria-label="Notifications"] .absolute {
 }
 
 
+/* ==========================
+   Modal Component (S Admin) - Enhanced
+   ========================== */
+.sadmin-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 40;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 240ms ease-out, visibility 240ms ease-out;
+  will-change: opacity;
+}
+
+.sadmin-modal-backdrop.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.sadmin-modal {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  z-index: 50;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 240ms ease-out, visibility 240ms ease-out;
+  will-change: opacity, visibility;
+}
+
+.sadmin-modal.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Closing state for exit animation */
+.sadmin-modal.closing {
+  opacity: 0;
+}
+
+
+.sadmin-modal__dialog {
+  width: 100%;
+  max-width: 32rem;
+  background: var(--bg-white);
+  color: var(--text-gray-900);
+  border: 1px solid var(--border-gray-200);
+  border-radius: 1.5rem;
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  transform: translateY(16px) scale(0.985);
+  opacity: 0;
+  transition: transform 220ms ease-out, opacity 220ms ease-out;
+  will-change: transform, opacity;
+  overflow: hidden;
+}
+
+.dark .sadmin-modal__dialog {
+  background: var(--gray-800);
+  color: var(--text-white);
+  border-color: var(--gray-700);
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.sadmin-modal.show .sadmin-modal__dialog {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  animation: sadminModalFadeUp 220ms ease-out both;
+}
+
+/* Exit transform */
+.sadmin-modal.closing .sadmin-modal__dialog {
+  transform: translateY(10px) scale(0.992);
+  opacity: 0;
+  transition-timing-function: ease-in;
+  animation: sadminModalFadeDown 220ms ease-in forwards;
+}
+
+/* Fade up animation for modal open */
+@keyframes sadminModalFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Fade down animation for modal close */
+@keyframes sadminModalFadeDown {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(14px) scale(0.992);
+  }
+}
+
+/* Enhanced modal animations and effects */
+.sadmin-modal__dialog--sm {
+  max-width: 400px;
+}
+
+.sadmin-modal__dialog--large {
+  max-width: 800px;
+}
+
+.sadmin-modal__dialog--xl {
+  max-width: 1000px;
+}
+
+/* Success/Error modal specific styles */
+.sadmin-modal .w-16 {
+  width: 4rem;
+  height: 4rem;
+}
+
+.sadmin-modal .w-8 {
+  width: 2rem;
+  height: 2rem;
+}
+
+/* Loading spinner animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Progress bar animation */
+@keyframes progressPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.animate-pulse {
+  animation: progressPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Image modal hover effects */
+.sadmin-modal .group:hover .group-hover\:scale-105 {
+  transform: scale(1.05);
+}
+
+.sadmin-modal .group:hover .group-hover\:opacity-100 {
+  opacity: 1;
+}
+
+.sadmin-modal .group:hover .group-hover\:bg-opacity-20 {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Pricing modal card hover effects */
+.sadmin-modal .hover\:scale-105:hover {
+  transform: scale(1.05);
+}
+
+.sadmin-modal .hover\:shadow-xl:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Enhanced button animations */
+.btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Ripple effect for buttons */
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Enhanced modal backdrop blur */
+.sadmin-modal.show .sadmin-modal__backdrop {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Staggered animation for pricing cards */
+.sadmin-modal .grid > div:nth-child(1) {
+  animation-delay: 0ms;
+}
+
+.sadmin-modal .grid > div:nth-child(2) {
+  animation-delay: 100ms;
+}
+
+.sadmin-modal .grid > div:nth-child(3) {
+  animation-delay: 200ms;
+}
+
+/* Slide in animation for pricing cards */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sadmin-modal .grid > div {
+  animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* Enhanced focus states */
+.sadmin-modal__close:focus {
+  outline: 2px solid var(--brand-500);
+  outline-offset: 2px;
+  background-color: rgba(59, 130, 246, 0.1);
+}
+
+/* Improved accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .sadmin-modal__dialog,
+  .sadmin-modal__backdrop,
+  .btn,
+  .animate-spin,
+  .animate-pulse {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .sadmin-modal,
+  .sadmin-modal__dialog {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Modal Sizes */
+.sadmin-modal__dialog--large {
+  max-width: 48rem;
+}
+
+.sadmin-modal__dialog--xl {
+  max-width: 64rem;
+}
+
+.sadmin-modal__dialog--sm {
+  max-width: 24rem;
+}
+
+.sadmin-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.25rem 0.5rem;
+  background: linear-gradient(135deg, var(--bg-white) 0%, var(--gray-50) 100%);
+  border-bottom: 1px solid var(--border-gray-200);
+  position: relative;
+}
+
+.sadmin-modal__header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--brand-500), var(--brand-600));
+  border-radius: 1.5rem 1.5rem 0 0;
+}
+
+.dark .sadmin-modal__header {
+  background: linear-gradient(135deg, var(--gray-800) 0%, var(--gray-700) 100%);
+  border-color: var(--gray-700);
+}
+
+.sadmin-modal__title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-gray-900);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dark .sadmin-modal__title {
+  color: var(--text-white);
+}
+
+.sadmin-modal__title-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+}
+
+.sadmin-modal__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  color: var(--text-gray-500);
+  position: relative;
+  overflow: hidden;
+}
+
+.sadmin-modal__close::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gray-100);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  border-radius: inherit;
+}
+
+.sadmin-modal__close:hover {
+  transform: none;
+  color: var(--text-gray-700);
+}
+
+.sadmin-modal__close:hover::before {
+  opacity: 1;
+}
+
+.sadmin-modal__close svg {
+  position: relative;
+  z-index: 1;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.dark .sadmin-modal__close {
+  background: transparent;
+  color: var(--text-gray-400);
+}
+
+.dark .sadmin-modal__close:hover {
+  background: rgba(255,255,255,0.06);
+  color: var(--text-white);
+}
+
+/* Focus ring for accessibility */
+.sadmin-modal__close:focus-visible {
+  outline: 2px solid var(--brand-500);
+  outline-offset: 2px;
+}
+
+.sadmin-modal__body {
+  padding: 1rem 1.25rem;
+  max-height: 75vh;
+  overflow-y: auto;
+}
+
+.sadmin-modal__body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sadmin-modal__body::-webkit-scrollbar-track {
+  background: var(--gray-100);
+  border-radius: 3px;
+}
+
+.sadmin-modal__body::-webkit-scrollbar-thumb {
+  background: var(--gray-300);
+  border-radius: 3px;
+}
+
+.dark .sadmin-modal__body::-webkit-scrollbar-track {
+  background: var(--gray-700);
+}
+
+.dark .sadmin-modal__body::-webkit-scrollbar-thumb {
+  background: var(--gray-500);
+}
+
+.sadmin-modal__text {
+  font-size: 0.875rem;
+  color: var(--text-gray-600);
+  line-height: 1.6;
+}
+
+.dark .sadmin-modal__text {
+  color: var(--text-gray-300);
+}
+
+.sadmin-modal__footer {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  padding: 0.75rem 1.25rem 1.25rem;
+  background: var(--gray-50);
+  border-top: 1px solid var(--border-gray-200);
+}
+
+.dark .sadmin-modal__footer {
+  background: var(--gray-900);
+  border-color: var(--gray-700);
+}
+
+/* Modal Content Enhancements */
+.sadmin-modal__content {
+  margin-bottom: 1.5rem;
+}
+
+.sadmin-modal__content h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-gray-900);
+  margin-bottom: 0.5rem;
+}
+
+.dark .sadmin-modal__content h4 {
+  color: var(--text-white);
+}
+
+.sadmin-modal__content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sadmin-modal__content li {
+  padding: 0.25rem 0;
+  color: var(--text-gray-600);
+  font-size: 0.875rem;
+}
+
+.dark .sadmin-modal__content li {
+  color: var(--text-gray-300);
+}
+
+/* Alert Box in Modal */
+.sadmin-modal__alert {
+  padding: 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid;
+  margin: 1rem 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.sadmin-modal__alert--warning {
+  background: rgba(251, 191, 36, 0.1);
+  border-color: rgba(251, 191, 36, 0.3);
+  color: #92400e;
+}
+
+.dark .sadmin-modal__alert--warning {
+  background: rgba(251, 191, 36, 0.1);
+  border-color: rgba(251, 191, 36, 0.3);
+  color: #fbbf24;
+}
+
+.sadmin-modal__alert--danger {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #dc2626;
+}
+
+.dark .sadmin-modal__alert--danger {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #f87171;
+}
+
+.sadmin-modal__alert--info {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.3);
+  color: #2563eb;
+}
+
+.dark .sadmin-modal__alert--info {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.3);
+  color: #60a5fa;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sadmin-modal {
+    padding: 0.5rem;
+  }
+  
+  .sadmin-modal__dialog {
+    max-width: 100%;
+    border-radius: 1rem;
+    margin: 0;
+  }
+  
+  .sadmin-modal__header {
+    padding: 0.625rem 1rem 0.5rem;
+  }
+  
+  .sadmin-modal__body {
+    padding: 0.875rem 1rem;
+    max-height: 65vh;
+  }
+  
+  .sadmin-modal__footer {
+    padding: 0.625rem 1rem 1rem;
+    flex-direction: column;
+  }
+  
+  .sadmin-modal__footer .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .sadmin-modal__dialog {
+    border-radius: 0.75rem;
+  }
+  
+  .sadmin-modal__header {
+    padding: 0.75rem 1rem 0.5rem;
+  }
+  
+  .sadmin-modal__body {
+    padding: 0.75rem 1rem;
+  }
+  
+  .sadmin-modal__footer {
+    padding: 0.5rem 1rem 1rem;
+  }
+  
+  .sadmin-modal__title {
+    font-size: 1.125rem;
+  }
+}
+
