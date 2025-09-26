@@ -192,7 +192,7 @@
                 <span>Alert</span>
               </a>
               <a
-                href="#"
+                href="ui-elements.htm"
                 class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300"
               >
                 <span class="i">➕</span>
@@ -542,6 +542,74 @@
               >
                 <span class="i">👥</span>
                 <span>Users</span>
+              </a>
+            </div>
+          </div>
+          <!-- Authentication - With submenu -->
+          <div class="menu-item" data-menu="authentication">
+            <button
+              class="flex items-center justify-between w-full px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+            >
+              <div class="flex items-center gap-3">
+                <span class="i">🔐</span>
+                <span>Authentication</span>
+              </div>
+              <svg
+                class="w-4 h-4 transition-transform duration-200 menu-arrow"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                ></path>
+              </svg>
+            </button>
+            <div class="submenu ml-6 mt-1 space-y-1 hidden">
+              <a
+                href="login.html"
+                class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300"
+              >
+                <span class="i">➡️</span>
+                <span>Login</span>
+              </a>
+              <a
+                href="register.html"
+                class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300"
+              >
+                <span class="i">🆕</span>
+                <span>Register</span>
+              </a>
+              <a
+                href="forgot-password.html"
+                class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300"
+              >
+                <span class="i">❓</span>
+                <span>Forgot Password</span>
+              </a>
+              <a
+                href="reset-password.html"
+                class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300"
+              >
+                <span class="i">🔁</span>
+                <span>Reset Password</span>
+              </a>
+              <a
+                href="verify-email.html"
+                class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300"
+              >
+                <span class="i">✅</span>
+                <span>Verify Email</span>
+              </a>
+              <a
+                href="two-factor-auth.html"
+                class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300"
+              >
+                <span class="i">🔢</span>
+                <span>Two-Factor Auth</span>
               </a>
             </div>
           </div>
@@ -2224,7 +2292,6 @@
                   >
                     Usage Examples
                   </h3>
-                  
                 </div>
 
                 <!-- Responsive Test Section -->
@@ -3196,87 +3263,198 @@
     </div>
 
     <!-- Success Modal -->
-    <div id="successModal" class="sadmin-modal hidden" role="dialog" aria-modal="true" aria-labelledby="successModalTitle" aria-describedby="successModalDesc">
+    <div
+      id="successModal"
+      class="sadmin-modal hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="successModalTitle"
+      aria-describedby="successModalDesc"
+    >
       <div class="sadmin-modal__dialog sadmin-modal__dialog--sm">
         <div class="sadmin-modal__header">
           <h3 id="successModalTitle" class="sadmin-modal__title">
-            <div class="sadmin-modal__title-icon bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400">
+            <div
+              class="sadmin-modal__title-icon bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400"
+            >
               ✅
             </div>
             Success!
           </h3>
-          <button type="button" class="sadmin-modal__close" data-modal-close aria-label="Close modal">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          <button
+            type="button"
+            class="sadmin-modal__close"
+            data-modal-close
+            aria-label="Close modal"
+          >
+            <svg
+              class="w-5 h-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                d="M6 6L18 18"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
+              <path
+                d="M18 6L6 18"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
             </svg>
           </button>
         </div>
         <div class="sadmin-modal__body">
           <div class="text-center py-4">
-            <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg class="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            <div
+              class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+              <svg
+                class="w-8 h-8 text-green-600 dark:text-green-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"
+                ></path>
               </svg>
             </div>
-            <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Operation Completed</h4>
+            <h4
+              class="text-lg font-semibold text-gray-900 dark:text-white mb-2"
+            >
+              Operation Completed
+            </h4>
             <p id="successModalDesc" class="sadmin-modal__text">
-              Your changes have been saved successfully. All data has been updated and synchronized across all systems.
+              Your changes have been saved successfully. All data has been
+              updated and synchronized across all systems.
             </p>
           </div>
         </div>
         <div class="sadmin-modal__footer">
-          <button class="btn btn-primary btn-md w-full" data-modal-close>Continue</button>
+          <button class="btn btn-primary btn-md w-full" data-modal-close>
+            Continue
+          </button>
         </div>
       </div>
     </div>
 
     <!-- Error Modal -->
-    <div id="errorModal" class="sadmin-modal hidden" role="dialog" aria-modal="true" aria-labelledby="errorModalTitle" aria-describedby="errorModalDesc">
+    <div
+      id="errorModal"
+      class="sadmin-modal hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="errorModalTitle"
+      aria-describedby="errorModalDesc"
+    >
       <div class="sadmin-modal__dialog sadmin-modal__dialog--sm">
         <div class="sadmin-modal__header">
           <h3 id="errorModalTitle" class="sadmin-modal__title">
-            <div class="sadmin-modal__title-icon bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400">
+            <div
+              class="sadmin-modal__title-icon bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400"
+            >
               ❌
             </div>
             Error Occurred
           </h3>
-          <button type="button" class="sadmin-modal__close" data-modal-close aria-label="Close modal">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          <button
+            type="button"
+            class="sadmin-modal__close"
+            data-modal-close
+            aria-label="Close modal"
+          >
+            <svg
+              class="w-5 h-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                d="M6 6L18 18"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
+              <path
+                d="M18 6L6 18"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
             </svg>
           </button>
         </div>
         <div class="sadmin-modal__body">
           <div class="text-center py-4">
-            <div class="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg class="w-8 h-8 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            <div
+              class="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+              <svg
+                class="w-8 h-8 text-red-600 dark:text-red-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                ></path>
               </svg>
             </div>
-            <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Something Went Wrong</h4>
+            <h4
+              class="text-lg font-semibold text-gray-900 dark:text-white mb-2"
+            >
+              Something Went Wrong
+            </h4>
             <p id="errorModalDesc" class="sadmin-modal__text">
-              We encountered an unexpected error while processing your request. Please try again or contact support if the problem persists.
+              We encountered an unexpected error while processing your request.
+              Please try again or contact support if the problem persists.
             </p>
-            <div class="mt-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-              <p class="text-sm text-red-700 dark:text-red-300">Error Code: 500 - Internal Server Error</p>
+            <div
+              class="mt-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg"
+            >
+              <p class="text-sm text-red-700 dark:text-red-300">
+                Error Code: 500 - Internal Server Error
+              </p>
             </div>
           </div>
         </div>
         <div class="sadmin-modal__footer">
-          <button class="btn btn-secondary btn-md" data-modal-close>Cancel</button>
+          <button class="btn btn-secondary btn-md" data-modal-close>
+            Cancel
+          </button>
           <button class="btn btn-danger btn-md">Try Again</button>
         </div>
       </div>
     </div>
 
     <!-- Loading Modal -->
-    <div id="loadingModal" class="sadmin-modal hidden" role="dialog" aria-modal="true" aria-labelledby="loadingModalTitle" aria-describedby="loadingModalDesc">
+    <div
+      id="loadingModal"
+      class="sadmin-modal hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="loadingModalTitle"
+      aria-describedby="loadingModalDesc"
+    >
       <div class="sadmin-modal__dialog sadmin-modal__dialog--sm">
         <div class="sadmin-modal__header">
           <h3 id="loadingModalTitle" class="sadmin-modal__title">
-            <div class="sadmin-modal__title-icon bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
+            <div
+              class="sadmin-modal__title-icon bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
+            >
               ⏳
             </div>
             Processing...
@@ -3284,72 +3462,137 @@
         </div>
         <div class="sadmin-modal__body">
           <div class="text-center py-8">
-            <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-              <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 dark:border-blue-400"></div>
+            <div
+              class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+              <div
+                class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 dark:border-blue-400"
+              ></div>
             </div>
-            <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Please Wait</h4>
+            <h4
+              class="text-lg font-semibold text-gray-900 dark:text-white mb-2"
+            >
+              Please Wait
+            </h4>
             <p id="loadingModalDesc" class="sadmin-modal__text">
               We're processing your request. This may take a few moments...
             </p>
             <div class="mt-6">
               <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                <div class="bg-blue-600 h-2 rounded-full animate-pulse" style="width: 60%"></div>
+                <div
+                  class="bg-blue-600 h-2 rounded-full animate-pulse"
+                  style="width: 60%"
+                ></div>
               </div>
-              <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">60% Complete</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">
+                60% Complete
+              </p>
             </div>
           </div>
         </div>
         <div class="sadmin-modal__footer">
-          <button class="btn btn-secondary btn-md" data-modal-close>Cancel</button>
+          <button class="btn btn-secondary btn-md" data-modal-close>
+            Cancel
+          </button>
         </div>
       </div>
     </div>
 
     <!-- Image Modal -->
-    <div id="imageModal" class="sadmin-modal hidden" role="dialog" aria-modal="true" aria-labelledby="imageModalTitle" aria-describedby="imageModalDesc">
+    <div
+      id="imageModal"
+      class="sadmin-modal hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="imageModalTitle"
+      aria-describedby="imageModalDesc"
+    >
       <div class="sadmin-modal__dialog sadmin-modal__dialog--large">
         <div class="sadmin-modal__header">
           <h3 id="imageModalTitle" class="sadmin-modal__title">
-            <div class="sadmin-modal__title-icon bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400">
+            <div
+              class="sadmin-modal__title-icon bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400"
+            >
               🖼️
             </div>
             Image Preview
           </h3>
-          <button type="button" class="sadmin-modal__close" data-modal-close aria-label="Close modal">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          <button
+            type="button"
+            class="sadmin-modal__close"
+            data-modal-close
+            aria-label="Close modal"
+          >
+            <svg
+              class="w-5 h-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                d="M6 6L18 18"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
+              <path
+                d="M18 6L6 18"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
             </svg>
           </button>
         </div>
         <div class="sadmin-modal__body">
           <div class="space-y-4">
             <div class="relative group">
-              <img 
-                src="https://images.unsplash.com/photo-1506905925346-14bda5d908aa?w=800&h=600&fit=crop&crop=center" 
-                alt="Mountain Landscape" 
+              <img
+                src="https://images.unsplash.com/photo-1506905925346-14bda5d908aa?w=800&h=600&fit=crop&crop=center"
+                alt="Mountain Landscape"
                 class="w-full h-64 object-cover rounded-lg shadow-lg group-hover:scale-105 transition-transform duration-300"
               />
-              <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 rounded-lg flex items-center justify-center">
-                <button class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-4 py-2 rounded-lg shadow-lg">
+              <div
+                class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 rounded-lg flex items-center justify-center"
+              >
+                <button
+                  class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-4 py-2 rounded-lg shadow-lg"
+                >
                   <span class="mr-2">🔍</span>
                   View Full Size
                 </button>
               </div>
             </div>
             <div class="grid grid-cols-3 gap-2">
-              <img src="https://images.unsplash.com/photo-1506905925346-14bda5d908aa?w=200&h=150&fit=crop" alt="Thumbnail 1" class="w-full h-20 object-cover rounded cursor-pointer hover:opacity-80 transition-opacity" />
-              <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=200&h=150&fit=crop" alt="Thumbnail 2" class="w-full h-20 object-cover rounded cursor-pointer hover:opacity-80 transition-opacity" />
-              <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=200&h=150&fit=crop" alt="Thumbnail 3" class="w-full h-20 object-cover rounded cursor-pointer hover:opacity-80 transition-opacity" />
+              <img
+                src="https://images.unsplash.com/photo-1506905925346-14bda5d908aa?w=200&h=150&fit=crop"
+                alt="Thumbnail 1"
+                class="w-full h-20 object-cover rounded cursor-pointer hover:opacity-80 transition-opacity"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=200&h=150&fit=crop"
+                alt="Thumbnail 2"
+                class="w-full h-20 object-cover rounded cursor-pointer hover:opacity-80 transition-opacity"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=200&h=150&fit=crop"
+                alt="Thumbnail 3"
+                class="w-full h-20 object-cover rounded cursor-pointer hover:opacity-80 transition-opacity"
+              />
             </div>
-            <div class="flex items-center justify-between text-sm text-gray-600 dark:text-gray-400">
+            <div
+              class="flex items-center justify-between text-sm text-gray-600 dark:text-gray-400"
+            >
               <span>📸 Mountain Landscape</span>
               <span>2.4 MB • 1920×1080</span>
             </div>
           </div>
         </div>
         <div class="sadmin-modal__footer">
-          <button class="btn btn-secondary btn-md" data-modal-close>Close</button>
+          <button class="btn btn-secondary btn-md" data-modal-close>
+            Close
+          </button>
           <button class="btn btn-primary btn-md">Download</button>
           <button class="btn btn-success btn-md">Share</button>
         </div>
@@ -3357,36 +3600,77 @@
     </div>
 
     <!-- Pricing Modal -->
-    <div id="pricingModal" class="sadmin-modal hidden" role="dialog" aria-modal="true" aria-labelledby="pricingModalTitle" aria-describedby="pricingModalDesc">
+    <div
+      id="pricingModal"
+      class="sadmin-modal hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="pricingModalTitle"
+      aria-describedby="pricingModalDesc"
+    >
       <div class="sadmin-modal__dialog sadmin-modal__dialog--xl">
         <div class="sadmin-modal__header">
           <h3 id="pricingModalTitle" class="sadmin-modal__title">
-            <div class="sadmin-modal__title-icon bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400">
+            <div
+              class="sadmin-modal__title-icon bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400"
+            >
               💰
             </div>
             Choose Your Plan
           </h3>
-          <button type="button" class="sadmin-modal__close" data-modal-close aria-label="Close modal">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          <button
+            type="button"
+            class="sadmin-modal__close"
+            data-modal-close
+            aria-label="Close modal"
+          >
+            <svg
+              class="w-5 h-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                d="M6 6L18 18"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
+              <path
+                d="M18 6L6 18"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
             </svg>
           </button>
         </div>
         <div class="sadmin-modal__body">
           <p id="pricingModalDesc" class="sadmin-modal__text mb-6 text-center">
-            Select the perfect plan for your needs. All plans include our core features with no hidden fees.
+            Select the perfect plan for your needs. All plans include our core
+            features with no hidden fees.
           </p>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <!-- Basic Plan -->
-            <div class="relative bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:border-brand-500 dark:hover:border-brand-400 transition-all duration-300 hover:shadow-lg">
+            <div
+              class="relative bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:border-brand-500 dark:hover:border-brand-400 transition-all duration-300 hover:shadow-lg"
+            >
               <div class="text-center">
-                <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Basic</h4>
+                <h4
+                  class="text-lg font-semibold text-gray-900 dark:text-white mb-2"
+                >
+                  Basic
+                </h4>
                 <div class="mb-4">
-                  <span class="text-3xl font-bold text-gray-900 dark:text-white">$9</span>
+                  <span class="text-3xl font-bold text-gray-900 dark:text-white"
+                    >$9</span
+                  >
                   <span class="text-gray-600 dark:text-gray-400">/month</span>
                 </div>
-                <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400 mb-6">
+                <ul
+                  class="space-y-2 text-sm text-gray-600 dark:text-gray-400 mb-6"
+                >
                   <li class="flex items-center">
                     <span class="text-green-500 mr-2">✓</span>
                     Up to 5 projects
@@ -3400,22 +3684,37 @@
                     Email support
                   </li>
                 </ul>
-                <button class="w-full btn btn-outline btn-md">Choose Basic</button>
+                <button class="w-full btn btn-outline btn-md">
+                  Choose Basic
+                </button>
               </div>
             </div>
 
             <!-- Pro Plan -->
-            <div class="relative bg-white dark:bg-gray-800 border-2 border-brand-500 dark:border-brand-400 rounded-xl p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+            <div
+              class="relative bg-white dark:bg-gray-800 border-2 border-brand-500 dark:border-brand-400 rounded-xl p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+            >
               <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                <span class="bg-brand-500 text-white px-3 py-1 rounded-full text-xs font-medium">Most Popular</span>
+                <span
+                  class="bg-brand-500 text-white px-3 py-1 rounded-full text-xs font-medium"
+                  >Most Popular</span
+                >
               </div>
               <div class="text-center">
-                <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Pro</h4>
+                <h4
+                  class="text-lg font-semibold text-gray-900 dark:text-white mb-2"
+                >
+                  Pro
+                </h4>
                 <div class="mb-4">
-                  <span class="text-3xl font-bold text-gray-900 dark:text-white">$29</span>
+                  <span class="text-3xl font-bold text-gray-900 dark:text-white"
+                    >$29</span
+                  >
                   <span class="text-gray-600 dark:text-gray-400">/month</span>
                 </div>
-                <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400 mb-6">
+                <ul
+                  class="space-y-2 text-sm text-gray-600 dark:text-gray-400 mb-6"
+                >
                   <li class="flex items-center">
                     <span class="text-green-500 mr-2">✓</span>
                     Up to 25 projects
@@ -3433,19 +3732,31 @@
                     Advanced analytics
                   </li>
                 </ul>
-                <button class="w-full btn btn-primary btn-md">Choose Pro</button>
+                <button class="w-full btn btn-primary btn-md">
+                  Choose Pro
+                </button>
               </div>
             </div>
 
             <!-- Enterprise Plan -->
-            <div class="relative bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:border-brand-500 dark:hover:border-brand-400 transition-all duration-300 hover:shadow-lg">
+            <div
+              class="relative bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:border-brand-500 dark:hover:border-brand-400 transition-all duration-300 hover:shadow-lg"
+            >
               <div class="text-center">
-                <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Enterprise</h4>
+                <h4
+                  class="text-lg font-semibold text-gray-900 dark:text-white mb-2"
+                >
+                  Enterprise
+                </h4>
                 <div class="mb-4">
-                  <span class="text-3xl font-bold text-gray-900 dark:text-white">$99</span>
+                  <span class="text-3xl font-bold text-gray-900 dark:text-white"
+                    >$99</span
+                  >
                   <span class="text-gray-600 dark:text-gray-400">/month</span>
                 </div>
-                <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400 mb-6">
+                <ul
+                  class="space-y-2 text-sm text-gray-600 dark:text-gray-400 mb-6"
+                >
                   <li class="flex items-center">
                     <span class="text-green-500 mr-2">✓</span>
                     Unlimited projects
@@ -3463,13 +3774,17 @@
                     Custom integrations
                   </li>
                 </ul>
-                <button class="w-full btn btn-outline btn-md">Choose Enterprise</button>
+                <button class="w-full btn btn-outline btn-md">
+                  Choose Enterprise
+                </button>
               </div>
             </div>
           </div>
         </div>
         <div class="sadmin-modal__footer">
-          <button class="btn btn-secondary btn-md" data-modal-close>Close</button>
+          <button class="btn btn-secondary btn-md" data-modal-close>
+            Close
+          </button>
           <button class="btn btn-primary btn-md">Contact Sales</button>
         </div>
       </div>

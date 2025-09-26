@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verify Email • S Admin</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Apply theme immediately before any content renders
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .auth-container {
+      background: linear-gradient(135deg, rgba(102,126,234,.15), rgba(118,75,162,.15), rgba(59,130,246,.1));
+      min-height: 100vh;
+      min-height: 100dvh; /* Dynamic viewport height for mobile */
+      width: 100%;
+      position: relative;
+    }
+    .auth-card {
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(8px);
+      border-radius: 16px;
+    }
+    .auth-brand {
+      background: var(--brand-600);
+      color: var(--text-white);
+      box-shadow: var(--shadow-md);
+      transition: var(--btn-transition);
+    }
+    .auth-title { 
+      letter-spacing: -0.01em; 
+      color: var(--text-slate-900, #0f172a);
+    }
+    .auth-subtle { color: var(--text-slate-600, #475569); }
+    .auth-label { color: var(--text-slate-800, #1e293b); }
+    .auth-text { color: var(--text-slate-700, #334155); }
+    .auth-divider-bg { 
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 9999px;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1), 
+                  0 1px 3px 0 rgba(0, 0, 0, 0.08),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+    .border-gradient {
+      background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.2) 20%, 
+        rgba(255, 255, 255, 0.4) 50%, 
+        rgba(255, 255, 255, 0.2) 80%, 
+        transparent 100%);
+      height: 1px;
+    }
+    .btn-primary {
+      background: var(--btn-primary-bg);
+      color: var(--text-white);
+      box-shadow: var(--btn-primary-shadow);
+      transition: var(--btn-transition);
+    }
+    .btn-primary:hover {
+      background: var(--btn-primary-hover);
+      box-shadow: var(--btn-primary-shadow-hover);
+      transform: var(--btn-translate-hover);
+    }
+    .btn-primary:active {
+      background: var(--btn-primary-active);
+      transform: var(--btn-translate-active);
+    }
+    .btn-secondary {
+      background: var(--btn-secondary-bg);
+      color: var(--btn-secondary-text);
+      box-shadow: var(--btn-secondary-shadow);
+      border: 1px solid var(--btn-secondary-border);
+      transition: var(--btn-transition);
+    }
+    .btn-secondary:hover {
+      background: var(--btn-secondary-hover);
+      box-shadow: var(--btn-secondary-shadow-hover);
+      transform: var(--btn-translate-hover);
+    }
+    .input-field {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+      transition: var(--btn-transition);
+      color: var(--text-slate-900, #0f172a);
+      backdrop-filter: blur(4px);
+    }
+    .input-field:hover {
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    .input-field:focus {
+      outline: none;
+      border-color: var(--brand-500, #6366f1);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1), 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    .input-field::placeholder {
+      color: var(--text-slate-400, #94a3b8);
+    }
+    .input-addon {
+      color: var(--text-slate-500, #64748b);
+      border-right: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      backdrop-filter: blur(2px);
+    }
+    .input-icon { width: 18px; height: 18px; }
+    .error-text { color: var(--danger-600, #dc2626); }
+    .helper-text { color: var(--text-slate-500, #64748b); }
+    .link-primary {
+      color: var(--btn-link-text);
+      transition: var(--btn-transition);
+    }
+    .link-primary:hover { color: var(--btn-link-text-hover); }
+
+    /* Remember Me Checkbox - Polished & Stable */
+    .remember-checkbox {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      gap: 8px;
+    }
+
+    .remember-checkbox input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+
+    .checkmark {
+      position: relative;
+      height: 20px;
+      width: 20px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 4px;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      flex-shrink: 0;
+    }
+
+    .remember-checkbox:hover .checkmark {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.4);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    }
+
+    .remember-checkbox input:checked ~ .checkmark {
+      background: var(--brand-500, #6366f1);
+      border-color: var(--brand-500, #6366f1);
+      box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+    }
+
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+      left: 6px;
+      top: 2px;
+      width: 4px;
+      height: 8px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+
+    .remember-checkbox input:checked ~ .checkmark:after {
+      display: block;
+    }
+
+    .remember-checkbox span {
+      font-size: 0.875rem;
+      color: var(--text-slate-700, #334155);
+      transition: color 0.2s ease;
+      line-height: 1.25;
+    }
+
+    .remember-checkbox:hover span {
+      color: var(--text-slate-900, #0f172a);
+    }
+
+    /* ===== DARK THEME - SMART & POLISHED ===== */
+    .dark {
+      /* Core Dark Theme Variables */
+      --dark-bg: #0f0f23;
+      --dark-surface: #1a1a2e;
+      --dark-surface-hover: #16213e;
+      --dark-text: #f8fafc;
+      --dark-text-muted: #94a3b8;
+      --dark-border: #374151;
+      --dark-accent: #3b82f6;
+      --dark-accent-hover: #2563eb;
+      --dark-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+      --dark-shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Layout & Container - Glassmorphism Dark */
+    .dark .auth-container {
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
+        linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+      backdrop-filter: blur(20px);
+      position: relative;
+      min-height: 100vh;
+      min-height: 100dvh; /* Dynamic viewport height for mobile */
+      width: 100%;
+    }
+    .dark .auth-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .dark .auth-card {
+      background: rgba(15, 15, 35, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 
+        0 8px 32px 0 rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        0 0 40px rgba(59, 130, 246, 0.1);
+      backdrop-filter: blur(20px) saturate(180%);
+      position: relative;
+      overflow: hidden;
+    }
+    .dark .auth-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    }
+    .dark .auth-card::after {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(135deg, 
+        rgba(59, 130, 246, 0.1) 0%, 
+        transparent 25%, 
+        transparent 75%, 
+        rgba(139, 92, 246, 0.1) 100%);
+      border-radius: 22px;
+      z-index: -1;
+    }
+
+    /* Typography - Enhanced Contrast */
+    .dark .auth-title { 
+      color: #ffffff;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+    .dark .auth-subtle { 
+      color: #e2e8f0;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    .dark .auth-label { 
+      color: #f8fafc;
+      font-weight: 600;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    .dark .auth-text { 
+      color: #cbd5e1;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    .dark .helper-text { 
+      color: #94a3b8;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    .dark .error-text { 
+      color: #f87171;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Input Fields - Enhanced Glassmorphism Dark */
+    .dark .input-field {
+      background: rgba(20, 20, 35, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        0 0 20px rgba(59, 130, 246, 0.05);
+      backdrop-filter: blur(12px) saturate(150%);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .dark .input-field:hover {
+      background: rgba(25, 25, 40, 0.7);
+      border-color: rgba(59, 130, 246, 0.4);
+      box-shadow: 
+        0 8px 15px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 0 25px rgba(59, 130, 246, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .dark .input-field:focus {
+      background: rgba(30, 30, 45, 0.8);
+      border-color: #3b82f6;
+      box-shadow: 
+        0 0 0 3px rgba(59, 130, 246, 0.2),
+        0 8px 15px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        0 0 30px rgba(59, 130, 246, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .dark .input-field::placeholder {
+      color: var(--dark-text-muted);
+    }
+
+    /* Buttons - Dark Theme (Similar to Light) */
+    .dark .btn-primary {
+      background: var(--btn-primary-bg);
+      color: var(--text-white);
+      box-shadow: var(--btn-primary-shadow);
+      transition: var(--btn-transition);
+    }
+    .dark .btn-primary:hover {
+      background: var(--btn-primary-hover);
+      box-shadow: var(--btn-primary-shadow-hover);
+      transform: var(--btn-translate-hover);
+    }
+    .dark .btn-primary:active {
+      background: var(--btn-primary-active);
+      transform: var(--btn-translate-active);
+    }
+
+    .dark .btn-secondary {
+      background: var(--btn-secondary-bg);
+      color: var(--btn-secondary-text);
+      box-shadow: var(--btn-secondary-shadow);
+      border: 1px solid var(--btn-secondary-border);
+      transition: var(--btn-transition);
+    }
+    .dark .btn-secondary:hover {
+      background: var(--btn-secondary-hover);
+      box-shadow: var(--btn-secondary-shadow-hover);
+      transform: var(--btn-translate-hover);
+    }
+
+    /* Links - Enhanced Contrast */
+    .dark .link-primary {
+      color: #60a5fa;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .dark .link-primary:hover {
+      color: #93c5fd;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Divider - Enhanced */
+    .dark .auth-divider-bg {
+      background: rgba(20, 20, 35, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(8px);
+    }
+
+    /* Password Toggle Icon */
+    .dark #togglePassword svg {
+      stroke: var(--dark-accent);
+      fill: none;
+      stroke-width: 2;
+    }
+
+    /* Social Media Icons */
+    .dark .btn-secondary svg {
+      fill: var(--dark-text);
+    }
+
+    /* Remember Me Checkbox - Dark Theme */
+    .dark .checkmark {
+      background: rgba(30, 30, 30, 0.6);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .dark .remember-checkbox:hover .checkmark {
+      background: rgba(35, 35, 35, 0.7);
+      border-color: rgba(59, 130, 246, 0.4);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    }
+
+    .dark .remember-checkbox input:checked ~ .checkmark {
+      background: var(--brand-500, #6366f1);
+      border-color: var(--brand-500, #6366f1);
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+    }
+
+    .dark .remember-checkbox span {
+      color: var(--dark-text-muted, #94a3b8);
+    }
+
+    .dark .remember-checkbox:hover span {
+      color: var(--dark-text, #f8fafc);
+    }
+
+    /* Enhanced Verification Code Input Styling */
+    .verification-input {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .verification-input::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s;
+    }
+
+    .verification-input:focus::before {
+      left: 100%;
+    }
+
+    .verification-input.filled {
+      background: rgba(99, 102, 241, 0.1);
+      border-color: rgba(99, 102, 241, 0.3);
+      box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
+    }
+
+    .verification-input.error {
+      background: rgba(239, 68, 68, 0.1);
+      border-color: rgba(239, 68, 68, 0.3);
+      box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.1);
+      animation: shake 0.5s ease-in-out;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    .verification-input.success {
+      background: rgba(34, 197, 94, 0.1);
+      border-color: rgba(34, 197, 94, 0.3);
+      box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.1);
+      animation: pulse 0.6s ease-in-out;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    /* Dark theme enhancements */
+    .dark .verification-input.filled {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: rgba(59, 130, 246, 0.4);
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+    }
+
+    .dark .verification-input.error {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.4);
+      box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.1);
+    }
+
+    .dark .verification-input.success {
+      background: rgba(34, 197, 94, 0.15);
+      border-color: rgba(34, 197, 94, 0.4);
+      box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.1);
+    }
+    
+  </style>
+</head>
+<body class="dark:text-gray-100">
+  <div class="auth-container min-h-screen flex items-center justify-center p-6 lg:p-12">
+    <!-- Form Only -->
+    <div class="w-full max-w-md auth-card rounded-2xl p-6 lg:p-8">
+        <div class="flex items-center justify-between mb-7">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg grid place-items-center font-bold auth-brand">S</div>
+            <div>
+              <h1 class="text-2xl font-semibold auth-title">Verify Email</h1>
+              <p class="text-sm auth-subtle">Check your email for verification code</p>
+            </div>
+          </div>
+          <a href="index.html" class="text-xs link-primary">← Back</a>
+        </div>
+
+        <form id="verifyEmailForm" class="space-y-5" action="#" method="post" novalidate>
+          <div class="space-y-4">
+            <label class="text-sm font-medium auth-label text-center block">Verification Code</label>
+            <div class="flex justify-center gap-2">
+              <input id="code1" type="text" maxlength="1" class="verification-input w-12 h-12 rounded-lg input-field text-center text-2xl font-bold transition-all duration-200 focus:scale-105 focus:ring-2 focus:ring-blue-500/20" />
+              <input id="code2" type="text" maxlength="1" class="verification-input w-12 h-12 rounded-lg input-field text-center text-2xl font-bold transition-all duration-200 focus:scale-105 focus:ring-2 focus:ring-blue-500/20" />
+              <input id="code3" type="text" maxlength="1" class="verification-input w-12 h-12 rounded-lg input-field text-center text-2xl font-bold transition-all duration-200 focus:scale-105 focus:ring-2 focus:ring-blue-500/20" />
+              <div class="w-2 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent dark:via-gray-600 self-center"></div>
+              <input id="code4" type="text" maxlength="1" class="verification-input w-12 h-12 rounded-lg input-field text-center text-2xl font-bold transition-all duration-200 focus:scale-105 focus:ring-2 focus:ring-blue-500/20" />
+              <input id="code5" type="text" maxlength="1" class="verification-input w-12 h-12 rounded-lg input-field text-center text-2xl font-bold transition-all duration-200 focus:scale-105 focus:ring-2 focus:ring-blue-500/20" />
+              <input id="code6" type="text" maxlength="1" class="verification-input w-12 h-12 rounded-lg input-field text-center text-2xl font-bold transition-all duration-200 focus:scale-105 focus:ring-2 focus:ring-blue-500/20" />
+            </div>
+            <p id="codeHelp" class="helper-text text-xs text-center">Enter the 6-digit code sent to your email</p>
+            <p id="codeError" class="error-text text-xs text-center hidden">Please enter a valid verification code</p>
+          </div>
+
+          <div class="flex items-center justify-between">
+            <button type="button" id="resendCode" class="text-xs link-primary hover:underline">Resend code</button>
+            <a href="forgot-password.html" class="text-xs link-primary">Need help?</a>
+          </div>
+
+          <button id="submitBtn" type="submit" class="w-full rounded-lg px-4 py-2.5 text-sm font-medium btn-primary flex items-center justify-center gap-2">
+            <span id="submitText">Verify Email</span>
+            <span id="submitSpinner" class="hidden w-4 h-4 border-2 border-white/70 border-t-transparent rounded-full animate-spin"></span>
+          </button>
+
+        </form>
+
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('verifyEmailForm');
+      const codeInputs = [
+        document.getElementById('code1'),
+        document.getElementById('code2'),
+        document.getElementById('code3'),
+        document.getElementById('code4'),
+        document.getElementById('code5'),
+        document.getElementById('code6')
+      ];
+      const codeError = document.getElementById('codeError');
+      const resendCode = document.getElementById('resendCode');
+    const submitBtn = document.getElementById('submitBtn');
+    const submitText = document.getElementById('submitText');
+    const submitSpinner = document.getElementById('submitSpinner');
+
+      function getVerificationCode() {
+        return codeInputs.map(input => input.value).join('');
+      }
+
+      function validateVerificationCode() {
+        const code = getVerificationCode();
+        return /^\d{6}$/.test(code);
+      }
+
+      function moveToNextInput(currentIndex) {
+        if (currentIndex < codeInputs.length - 1) {
+          codeInputs[currentIndex + 1].focus();
+        }
+      }
+
+      function moveToPreviousInput(currentIndex) {
+        if (currentIndex > 0) {
+          codeInputs[currentIndex - 1].focus();
+        }
+      }
+
+      function handleInput(input, index) {
+        // Remove any non-digit characters
+        let value = input.value.replace(/\D/g, '');
+        
+        // Limit to 1 digit
+        if (value.length > 1) {
+          value = value.substring(0, 1);
+        }
+        
+        input.value = value;
+        
+        // Add visual feedback
+        if (value) {
+          input.classList.add('filled');
+          input.classList.remove('error');
+        } else {
+          input.classList.remove('filled');
+        }
+        
+        // Move to next input if digit entered
+        if (value && index < codeInputs.length - 1) {
+          moveToNextInput(index);
+        }
+        
+        // Auto-submit when all 6 digits are entered
+        if (validateVerificationCode()) {
+          // Add success animation to all inputs
+          codeInputs.forEach(input => {
+            if (input) {
+              input.classList.add('success');
+              input.classList.remove('filled', 'error');
+            }
+          });
+          form.dispatchEvent(new Event('submit'));
+        }
+      }
+
+      function handleKeyDown(input, index, e) {
+        // Handle backspace
+        if (e.key === 'Backspace') {
+          if (!input.value && index > 0) {
+            moveToPreviousInput(index);
+          }
+        }
+        // Handle arrow keys
+        else if (e.key === 'ArrowLeft' && index > 0) {
+          moveToPreviousInput(index);
+        }
+        else if (e.key === 'ArrowRight' && index < codeInputs.length - 1) {
+          moveToNextInput(index);
+        }
+      }
+
+      function startResendCooldown() {
+        let countdown = 60;
+        if (resendCode) resendCode.disabled = true;
+        
+        const updateCountdown = () => {
+          if (resendCode) resendCode.textContent = `Resend code (${countdown}s)`;
+          
+          if (countdown > 0) {
+            countdown--;
+            setTimeout(updateCountdown, 1000);
+      } else {
+            if (resendCode) {
+              resendCode.textContent = 'Resend code';
+              resendCode.disabled = false;
+            }
+          }
+        };
+        
+        updateCountdown();
+      }
+
+      // Add event listeners to each input
+      codeInputs.forEach((input, index) => {
+        if (input) {
+          input.addEventListener('input', (e) => {
+            handleInput(e.target, index);
+          });
+          
+          input.addEventListener('keydown', (e) => {
+            handleKeyDown(e.target, index, e);
+          });
+          
+          input.addEventListener('paste', (e) => {
+            e.preventDefault();
+            const pastedData = e.clipboardData.getData('text').replace(/\D/g, '');
+            if (pastedData.length === 6) {
+              pastedData.split('').forEach((digit, i) => {
+                if (codeInputs[i]) {
+                  codeInputs[i].value = digit;
+                }
+              });
+              if (validateVerificationCode()) {
+                form.dispatchEvent(new Event('submit'));
+              }
+            }
+          });
+        }
+      });
+
+      // Handle resend code button
+      if (resendCode) {
+        resendCode.addEventListener('click', (e) => {
+          e.preventDefault();
+          
+          resendCode.textContent = 'Sending...';
+          resendCode.disabled = true;
+          
+          setTimeout(() => {
+            resendCode.textContent = 'Code sent!';
+            startResendCooldown();
+          }, 1000);
+        });
+      }
+
+
+      if (form) {
+        form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      let valid = true;
+          
+          if (!validateVerificationCode()) {
+            if (codeError) codeError.classList.remove('hidden');
+            // Add error animation to all inputs
+            codeInputs.forEach(input => {
+              if (input) {
+                input.classList.add('error');
+                input.classList.remove('filled', 'success');
+              }
+            });
+        valid = false;
+      } else {
+            if (codeError) codeError.classList.add('hidden');
+            // Remove error states
+            codeInputs.forEach(input => {
+              if (input) {
+                input.classList.remove('error');
+              }
+            });
+          }
+          
+          if (!valid) {
+            // Focus first empty input
+            const firstEmpty = codeInputs.find(input => !input.value);
+            if (firstEmpty) firstEmpty.focus();
+            return;
+          }
+
+          if (submitBtn) submitBtn.setAttribute('disabled', 'true');
+          if (submitText) submitText.textContent = 'Verifying...';
+          if (submitSpinner) submitSpinner.classList.remove('hidden');
+
+      setTimeout(() => {
+            if (submitText) submitText.textContent = 'Email verified successfully!';
+            if (submitSpinner) submitSpinner.classList.add('hidden');
+            
+            // For design purposes, just show success message
+            // No redirect to login page
+            
+            // Reset form after 3 seconds for demo purposes
+            setTimeout(() => {
+              codeInputs.forEach(input => {
+                if (input) {
+                  input.value = '';
+                  input.classList.remove('filled', 'error', 'success');
+                }
+              });
+              if (submitText) submitText.textContent = 'Verify Email';
+              if (submitBtn) submitBtn.removeAttribute('disabled');
+              if (codeInputs[0]) codeInputs[0].focus();
+            }, 3000);
+          }, 1200);
+        });
+      }
+
+      // Start resend cooldown on page load
+      startResendCooldown();
+    });
+  </script>
+</body>
+</html>
+
+
