@@ -155,7 +155,7 @@
             </svg>
           </button>
           <div class="submenu ml-6 mt-1 space-y-1 hidden">
-            <a href="form-elements.html" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+            <a href="ui-elements.htm" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
               <span class="i">📋</span>
               <span>All Elements</span>
             </a>
@@ -779,233 +779,84 @@
       </header>
 
       <!-- Content area -->
-      <main class="p-4 lg:p-6 space-y-6">
-        <!-- Stat cards -->
-        <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
-          <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-card border border-gray-100 dark:border-gray-700">
-            <div class="flex items-center justify-between">
-              <div>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Total Sales</p>
-                <p class="mt-1 text-2xl font-semibold">$24,300</p>
-              </div>
-              <span class="text-2xl">💸</span>
-            </div>
-            <p class="mt-3 text-xs text-emerald-600 dark:text-emerald-400">+12.4% vs last week</p>
+      <main class="p-4 lg:p-6 space-y-8">
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-card border border-gray-100 dark:border-gray-700">
+          <div class="mb-6">
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Form Elements</h1>
+            <p class="text-gray-600 dark:text-gray-400 mt-1">Basic input fields</p>
           </div>
-          <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-card border border-gray-100 dark:border-gray-700">
-            <div class="flex items-center justify-between">
-              <div>
-                <p class="text-sm text-gray-500 dark:text-gray-400">New Users</p>
-                <p class="mt-1 text-2xl font-semibold">1,245</p>
-              </div>
-              <span class="text-2xl">👤</span>
-            </div>
-            <p class="mt-3 text-xs text-emerald-600 dark:text-emerald-400">+4.1% vs last week</p>
-          </div>
-          <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-card border border-gray-100 dark:border-gray-700">
-            <div class="flex items-center justify-between">
-              <div>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Orders</p>
-                <p class="mt-1 text-2xl font-semibold">3,678</p>
-              </div>
-              <span class="text-2xl">🧾</span>
-            </div>
-            <p class="mt-3 text-xs text-red-600 dark:text-red-400">-1.8% vs last week</p>
-          </div>
-          <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-card border border-gray-100 dark:border-gray-700">
-            <div class="flex items-center justify-between">
-              <div>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Conversion</p>
-                <p class="mt-1 text-2xl font-semibold">3.1%</p>
-              </div>
-              <span class="text-2xl">⚡</span>
-            </div>
-            <p class="mt-3 text-xs text-emerald-600 dark:text-emerald-400">+0.6% vs last week</p>
-          </div>
-        </section>
 
-        <!-- Grid: chart + table -->
-        <section class="grid grid-cols-1 xl:grid-cols-3 gap-4">
-          <div class="xl:col-span-2 bg-white dark:bg-gray-800 rounded-xl p-6 shadow-card border border-gray-100 dark:border-gray-700">
-            <div class="flex items-center justify-between mb-4">
-              <h2 class="text-lg font-semibold">Revenue Analytics</h2>
-              <select id="chartPeriod" class="text-sm bg-gray-100 dark:bg-gray-700 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500">
-                <option value="7">Last 7 days</option>
-                <option value="30">Last 30 days</option>
-                <option value="90">Last 3 months</option>
-                <option value="365">Last 12 months</option>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Name</label>
+              <input type="text" placeholder="Enter your name" class="form-input" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email</label>
+              <input type="email" placeholder="Enter your email" class="form-input" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Password</label>
+              <div class="relative">
+                <input type="password" placeholder="Enter your password" class="form-input pr-10" id="passwordInput" />
+                <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center" onclick="togglePassword()">
+                  <span class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" id="passwordToggle">👁️</span>
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Number</label>
+              <input type="number" placeholder="Enter a number" class="form-input" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Search Select</label>
+              <select class="form-select" id="searchSelect" name="">
+                <option value="">Choose your country</option>
+                <option value="us">🇺🇸 United States</option>
+                <option value="uk">🇬🇧 United Kingdom</option>
+                <option value="ca">🇨🇦 Canada</option>
+                <option value="au">🇦🇺 Australia</option>
+                <option value="de">🇩🇪 Germany</option>
+                <option value="fr">🇫🇷 France</option>
+                <option value="jp">🇯🇵 Japan</option>
+                <option value="in">🇮🇳 India</option>
               </select>
             </div>
-            <div class="h-64">
-              <canvas id="revenueChart"></canvas>
-            </div>
-          </div>
 
-          <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-card border border-gray-100 dark:border-gray-700">
-            <div class="flex items-center justify-between mb-4">
-              <h2 class="text-lg font-semibold">Top Products</h2>
-              <button class="text-sm text-brand-600 hover:text-brand-700 hover:underline">View all</button>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Select</label>
+              <select class="form-select form-select-no-search" id="select" name="">
+                <option value="">Choose priority</option>
+                <option value="low">🟢 Low</option>
+                <option value="medium">🟡 Medium</option>
+                <option value="high">🟠 High</option>
+                <option value="urgent">🔴 Urgent</option>
+                <option value="critical">⚫ Critical</option>
+              </select>
             </div>
-            <div class="space-y-3">
-              <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-                    <span class="text-blue-600 dark:text-blue-400">🎧</span>
-                  </div>
-                  <div>
-                    <p class="font-medium text-sm">Wireless Headphones</p>
-                    <p class="text-xs text-gray-500">Audio</p>
-                  </div>
-                </div>
-                <div class="text-right">
-                  <p class="font-semibold text-sm">$31,125</p>
-                  <p class="text-xs text-gray-500">1,245 sales</p>
-                </div>
-              </div>
-              <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
-                    <span class="text-green-600 dark:text-green-400">⌚</span>
-                  </div>
-                  <div>
-                    <p class="font-medium text-sm">Smart Watch</p>
-                    <p class="text-xs text-gray-500">Wearables</p>
-                  </div>
-                </div>
-                <div class="text-right">
-                  <p class="font-semibold text-sm">$19,640</p>
-                  <p class="text-xs text-gray-500">982 sales</p>
-                </div>
-              </div>
-              <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
-                    <span class="text-purple-600 dark:text-purple-400">🖱️</span>
-                  </div>
-                  <div>
-                    <p class="font-medium text-sm">Gaming Mouse</p>
-                    <p class="text-xs text-gray-500">Accessories</p>
-                  </div>
-                </div>
-                <div class="text-right">
-                  <p class="font-semibold text-sm">$22,680</p>
-                  <p class="text-xs text-gray-500">1,512 sales</p>
-                </div>
-              </div>
-              <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center">
-                    <span class="text-orange-600 dark:text-orange-400">🖥️</span>
-                  </div>
-                  <div>
-                    <p class="font-medium text-sm">4K Monitor</p>
-                    <p class="text-xs text-gray-500">Displays</p>
-                  </div>
-                </div>
-                <div class="text-right">
-                  <p class="font-semibold text-sm">$45,780</p>
-                  <p class="text-xs text-gray-500">654 sales</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
-        <!-- Additional sections -->
-        <section class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <!-- Recent Orders -->
-          <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-card border border-gray-100 dark:border-gray-700">
-            <div class="flex items-center justify-between mb-4">
-              <h2 class="text-lg font-semibold">Recent Orders</h2>
-              <button class="text-sm text-brand-600 hover:text-brand-700 hover:underline">View all</button>
-            </div>
-            <div class="space-y-3">
-              <div class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-600 rounded-lg">
-                <div class="flex items-center gap-3">
-                  <div class="w-8 h-8 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
-                    <span class="text-green-600 dark:text-green-400 text-xs">✓</span>
-                  </div>
-                  <div>
-                    <p class="font-medium text-sm">#12345</p>
-                    <p class="text-xs text-gray-500">John Doe • 2 min ago</p>
-                  </div>
-                </div>
-                <div class="text-right">
-                  <p class="font-semibold text-sm">$299.00</p>
-                  <span class="inline-block px-2 py-1 text-xs bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full">Completed</span>
-                </div>
-              </div>
-              <div class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-600 rounded-lg">
-                <div class="flex items-center gap-3">
-                  <div class="w-8 h-8 bg-yellow-100 dark:bg-yellow-900 rounded-full flex items-center justify-center">
-                    <span class="text-yellow-600 dark:text-yellow-400 text-xs">⏳</span>
-                  </div>
-                  <div>
-                    <p class="font-medium text-sm">#12346</p>
-                    <p class="text-xs text-gray-500">Jane Smith • 5 min ago</p>
-                  </div>
-                </div>
-                <div class="text-right">
-                  <p class="font-semibold text-sm">$149.00</p>
-                  <span class="inline-block px-2 py-1 text-xs bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-full">Processing</span>
-                </div>
-              </div>
-              <div class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-600 rounded-lg">
-                <div class="flex items-center gap-3">
-                  <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
-                    <span class="text-blue-600 dark:text-blue-400 text-xs">📦</span>
-                  </div>
-                  <div>
-                    <p class="font-medium text-sm">#12347</p>
-                    <p class="text-xs text-gray-500">Mike Johnson • 10 min ago</p>
-                  </div>
-                </div>
-                <div class="text-right">
-                  <p class="font-semibold text-sm">$89.00</p>
-                  <span class="inline-block px-2 py-1 text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full">Shipped</span>
-                </div>
-              </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Select Multiple</label>
+              <select class="form-select-multi" id="multiSelect" name="skills" multiple>
+                <option value="html">🌐 HTML</option>
+                <option value="css">🎨 CSS</option>
+                <option value="javascript">⚡ JavaScript</option>
+                <option value="react">⚛️ React</option>
+                <option value="vue">💚 Vue.js</option>
+                <option value="angular">🔺 Angular</option>
+                <option value="node">🟢 Node.js</option>
+                <option value="python">🐍 Python</option>
+                <option value="php">🐘 PHP</option>
+                <option value="java">☕ Java</option>
+                <option value="sa">☕ Saikat</option>
+              </select>
             </div>
           </div>
-
-          <!-- Activity Feed -->
-          <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-card border border-gray-100 dark:border-gray-700">
-            <div class="flex items-center justify-between mb-4">
-              <h2 class="text-lg font-semibold">Activity Feed</h2>
-              <button class="text-sm text-brand-600 hover:text-brand-700 hover:underline">View all</button>
-            </div>
-            <div class="space-y-4">
-              <div class="flex gap-3">
-                <div class="w-2 h-2 bg-brand-500 rounded-full mt-2"></div>
-                <div class="flex-1">
-                  <p class="text-sm">New user registered: <span class="font-medium">Sarah Wilson</span></p>
-                  <p class="text-xs text-gray-500">2 minutes ago</p>
-                </div>
-              </div>
-              <div class="flex gap-3">
-                <div class="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
-                <div class="flex-1">
-                  <p class="text-sm">Order completed: <span class="font-medium">#12345</span></p>
-                  <p class="text-xs text-gray-500">5 minutes ago</p>
-                </div>
-              </div>
-              <div class="flex gap-3">
-                <div class="w-2 h-2 bg-yellow-500 rounded-full mt-2"></div>
-                <div class="flex-1">
-                  <p class="text-sm">Product updated: <span class="font-medium">Wireless Headphones</span></p>
-                  <p class="text-xs text-gray-500">1 hour ago</p>
-                </div>
-              </div>
-              <div class="flex gap-3">
-                <div class="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
-                <div class="flex-1">
-                  <p class="text-sm">New review received: <span class="font-medium">5 stars</span></p>
-                  <p class="text-xs text-gray-500">2 hours ago</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        </div>
       </main>
 
       <footer class="px-4 lg:px-6 pb-6 text-xs text-gray-500 dark:text-gray-400">
