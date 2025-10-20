@@ -340,8 +340,11 @@ window.Dashboard = {
 
       if (!toggle) return;
 
-      // Apply theme
+      // Apply theme with instant switch (disable transitions briefly)
       const applyTheme = (theme) => {
+        // Disable transitions for instant swap
+        document.documentElement.classList.add('no-theme-transition');
+
         if (theme === 'dark') {
           root.classList.add('dark');
           toggle.textContent = '☀️';
@@ -349,6 +352,13 @@ window.Dashboard = {
           root.classList.remove('dark');
           toggle.textContent = '🌙';
         }
+
+        // Re-enable transitions on the next animation frame to avoid jank
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            document.documentElement.classList.remove('no-theme-transition');
+          });
+        });
       };
 
       // Get saved theme or default to system preference
