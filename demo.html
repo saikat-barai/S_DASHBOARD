@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Date Picker</title>
+  <style>
+    .datepicker {
+      position: relative;
+      width: 250px;
+    }
+    .datepicker input {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .calendar {
+      display: none;
+      position: absolute;
+      top: 40px;
+      left: 0;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 100;
+    }
+    .calendar.active { display: block; }
+    .calendar table {
+      width: 100%;
+      text-align: center;
+      border-collapse: collapse;
+    }
+    .calendar th, .calendar td {
+      padding: 8px;
+      cursor: pointer;
+    }
+    .calendar td:hover {
+      background: #007bff;
+      color: white;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+
+<div class="datepicker">
+  <input type="text" id="dateInput" placeholder="Select Date" readonly>
+  <div class="calendar" id="calendar"></div>
+  <input type="date" name="" id="">
+</div>
+
+<script>
+const dateInput = document.getElementById('dateInput');
+const calendar = document.getElementById('calendar');
+
+dateInput.addEventListener('click', () => {
+  calendar.classList.toggle('active');
+  renderCalendar();
+});
+
+function renderCalendar() {
+  const today = new Date();
+  let days = '';
+  for (let i = 1; i <= 31; i++) {
+    days += `<td onclick="selectDate(${i})">${i}</td>`;
+    if (i % 7 === 0) days += '</tr><tr>';
+  }
+  calendar.innerHTML = `
+    <table>
+      <tr><th colspan="7">${today.toLocaleString('default', { month: 'long' })} ${today.getFullYear()}</th></tr>
+      <tr><th>Su</th><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th></tr>
+      <tr>${days}</tr>
+    </table>
+  `;
+}
+
+function selectDate(day) {
+  const today = new Date();
+  const dateStr = `${today.getFullYear()}-${today.getMonth()+1}-${day}`;
+  dateInput.value = dateStr;
+  calendar.classList.remove('active');
+}
+</script>
+</body>
+</html>

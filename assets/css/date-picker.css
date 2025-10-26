@@ -1,0 +1,55 @@
+/**
+ * Date Picker Styles
+ * Simple and Clean
+ */
+
+/* Ensure parent is positioned */
+.date-picker-container {
+  position: relative;
+}
+
+/* Month/Year Modal */
+.month-year-modal {
+  display: none;
+  font-family: 'Inter', sans-serif;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  position: absolute;
+  inset: 0; /* Covers parent dropdown */
+  z-index: 10000;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.month-year-modal.show {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  animation: monthYearModalIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes monthYearModalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.dark .month-year-modal {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Focus States - Clean Design */
+.date-picker-day:focus,
+.month-option:focus,
+.year-nav-btn:focus,
+.close-btn:focus,
+#yearInput:focus {
+  outline: none;
+  box-shadow: none;
+}

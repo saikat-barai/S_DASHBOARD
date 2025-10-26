@@ -5948,6 +5948,231 @@ button[aria-label="Notifications"] .absolute {
   }
 }
 
+/* Date picker styles moved to assets/css/date-picker.css */
+
+/* Month/Year Select Styling */
+#monthSelect {
+  appearance: none;
+  background: transparent;
+  border: none;
+  color: var(--text-gray-900);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s ease;
+}
+
+#monthSelect:hover {
+  background: var(--gray-100);
+}
+
+.dark #monthSelect {
+  color: var(--text-white);
+}
+
+.dark #monthSelect:hover {
+  background: var(--gray-700);
+}
+
+#yearSelect {
+  appearance: none;
+  background: transparent;
+  border: none;
+  color: var(--text-gray-600);
+  font-weight: 400;
+  font-size: 0.875rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s ease;
+  width: 4rem;
+  text-align: center;
+}
+
+#yearSelect:hover {
+  background: var(--gray-100);
+}
+
+.dark #yearSelect {
+  color: var(--text-gray-300);
+}
+
+.dark #yearSelect:hover {
+  background: var(--gray-700);
+}
+
+/* Day Cells */
+.date-picker-day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--text-gray-700);
+  background: transparent;
+  border: none;
+}
+
+.date-picker-day:hover {
+  background: var(--brand-100);
+  color: var(--brand-700);
+}
+
+.date-picker-day.other-month {
+  color: var(--text-gray-400);
+}
+
+.date-picker-day.other-month:hover {
+  background: var(--gray-100);
+  color: var(--text-gray-500);
+}
+
+.date-picker-day.today {
+  background: var(--brand-500);
+  color: white;
+  font-weight: 600;
+}
+
+.date-picker-day.today:hover {
+  background: var(--brand-600);
+  color: white;
+}
+
+.date-picker-day.selected {
+  background: var(--brand-500);
+  color: white;
+  font-weight: 600;
+}
+
+.date-picker-day.selected:hover {
+  background: var(--brand-600);
+  color: white;
+}
+
+.date-picker-day.disabled {
+  color: var(--text-gray-400);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.date-picker-day.disabled:hover {
+  background: transparent;
+  color: var(--text-gray-400);
+}
+
+/* Dark Mode Day Cells */
+.dark .date-picker-day {
+  color: var(--text-gray-300);
+}
+
+.dark .date-picker-day:hover {
+  background: var(--brand-900);
+  color: var(--brand-300);
+}
+
+.dark .date-picker-day.other-month {
+  color: var(--text-gray-500);
+}
+
+.dark .date-picker-day.other-month:hover {
+  background: var(--gray-700);
+  color: var(--text-gray-400);
+}
+
+.dark .date-picker-day.today {
+  background: var(--brand-600);
+  color: white;
+}
+
+.dark .date-picker-day.today:hover {
+  background: var(--brand-700);
+  color: white;
+}
+
+.dark .date-picker-day.selected {
+  background: var(--brand-600);
+  color: white;
+}
+
+.dark .date-picker-day.selected:hover {
+  background: var(--brand-700);
+  color: white;
+}
+
+.dark .date-picker-day.disabled {
+  color: var(--text-gray-500);
+}
+
+.dark .date-picker-day.disabled:hover {
+  background: transparent;
+  color: var(--text-gray-500);
+}
+
+/* Navigation Buttons */
+#prevMonth, #nextMonth {
+  transition: all 0.2s ease;
+}
+
+#prevMonth:hover, #nextMonth:hover {
+  transform: scale(1.1);
+}
+
+/* Footer Buttons */
+#todayBtn, #clearBtn, #closeBtn {
+  transition: all 0.2s ease;
+}
+
+#todayBtn:hover, #clearBtn:hover {
+  transform: translateY(-1px);
+}
+
+#closeBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Animation for dropdown */
+#datePickerDropdown.show {
+  animation: datePickerSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes datePickerSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  #datePickerDropdown {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+  
+  .date-picker-day {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.75rem;
+  }
+  
+  #prevMonth, #nextMonth {
+    padding: 0.5rem;
+  }
+}
+
 /* Autofill adjustments to ensure proper colors in dark mode */
 .dark input:-webkit-autofill,
 .dark input:-webkit-autofill:hover,

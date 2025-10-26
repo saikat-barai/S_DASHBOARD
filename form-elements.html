@@ -54,6 +54,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css" />
   <link rel="stylesheet" href="assets/css/preloader.css" />
+  <link rel="stylesheet" href="assets/css/date-picker.css" />
 </head>
 <body class="h-full bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
 
@@ -826,7 +827,48 @@
                 <option value="in">🇮🇳 India</option>
               </select>
             </div>
-
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Custom Date Picker</label>
+              <div class="relative">
+                <input type="text" id="customDatePicker2" class="form-input" data-date-picker placeholder="Select date..." readonly>
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Date Picker (DD-MM-YYYY)</label>
+              <div class="relative">
+                <input type="text" id="customDatePicker4" class="form-input" data-date-picker data-date-format="dd-mm-yyyy" placeholder="25-10-2025" readonly>
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Date Picker (MM-DD-YYYY)</label>
+              <div class="relative">
+                <input type="text" id="customDatePicker5" class="form-input" data-date-picker data-date-format="mm-dd-yyyy" placeholder="10-25-2025" readonly>
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Date Picker (YYYY-MM-DD)</label>
+              <div class="relative">
+                <input type="text" id="customDatePicker6" class="form-input" data-date-picker data-date-format="yyyy-mm-dd" placeholder="2025-10-25" readonly>
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Date Range Picker (Modal)</label>
+              <div class="relative">
+                <input type="text" id="dateRangeModalTrigger" class="form-input" placeholder="Select date range..." readonly>
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Time Picker (12-Hour)</label>
+              <div class="relative">
+                <input type="text" id="timePicker12" class="form-input" data-time-picker data-time-format="12" data-time-step="15" placeholder="02:30 PM" readonly>
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Time Picker (Watch Style)</label>
+              <div class="relative">
+                <input type="text" id="timePickerWatch" class="form-input" data-time-picker-watch placeholder="Select time..." readonly>
+              </div>
+            </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Select</label>
               <select class="form-select form-select-no-search" id="select" name="">
@@ -916,9 +958,148 @@
               </select>
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Select Multiple</label>
-              <input type="date" name="" id="" class="form-input">
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Custom Date Picker</label>
+              <div class="relative">
+                <input type="text" id="customDatePicker3" class="form-input" data-date-picker placeholder="Select date..." readonly>
+              </div>
             </div>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-card border border-gray-100 dark:border-gray-700">
+          <div class="mb-6">
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Form Elements</h1>
+            <p class="text-gray-600 dark:text-gray-400 mt-1">Basic input fields</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Name</label>
+              <input type="text" placeholder="Enter your name" class="form-input" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email</label>
+              <input type="email" placeholder="Enter your email" class="form-input" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Password</label>
+              <div class="relative">
+                <input type="password" placeholder="Enter your password" class="form-input pr-10" id="passwordInput" />
+                <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center" onclick="togglePassword()">
+                  <span class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" id="passwordToggle">👁️</span>
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Number</label>
+              <input type="number" placeholder="Enter a number" class="form-input" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Search Select</label>
+              <select class="form-select" id="searchSelect" name="">
+                <option value="">Choose your country</option>
+                <option value="us">🇺🇸 United States</option>
+                <option value="uk">🇬🇧 United Kingdom</option>
+                <option value="ca">🇨🇦 Canada</option>
+                <option value="au">🇦🇺 Australia</option>
+                <option value="de">🇩🇪 Germany</option>
+                <option value="fr">🇫🇷 France</option>
+                <option value="jp">🇯🇵 Japan</option>
+                <option value="in">🇮🇳 India</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Select</label>
+              <select class="form-select form-select-no-search" id="select" name="">
+                <option value="">Choose priority</option>
+                <option value="low">🟢 Low</option>
+                <option value="medium">🟡 Medium</option>
+                <option value="high">🟠 High</option>
+                <option value="urgent">🔴 Urgent</option>
+                <option value="critical">⚫ Critical</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Blood Group</label>
+              <select class="form-select form-select-no-search" id="bloodGroup" name="bloodGroup">
+                <option value="">Choose blood group</option>
+                <option value="A+">🩸 A+</option>
+                <option value="A-">🩸 A-</option>
+                <option value="B+">🩸 B+</option>
+                <option value="B-">🩸 B-</option>
+                <option value="AB+">🩸 AB+</option>
+                <option value="AB-">🩸 AB-</option>
+                <option value="O+">🩸 O+</option>
+                <option value="O-">🩸 O-</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Gender</label>
+              <select class="form-select form-select-no-search" id="gender" name="gender">
+                <option value="">Choose gender</option>
+                <option value="male">👨 Male</option>
+                <option value="female">👩 Female</option>
+                <option value="other">⚧ Other</option>
+                <option value="prefer-not-to-say">🤐 Prefer not to say</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Religion</label>
+              <select class="form-select form-select-no-search" id="religion" name="religion">
+                <option value="">Choose religion</option>
+                <option value="christianity">✝️ Christianity</option>
+                <option value="islam">☪️ Islam</option>
+                <option value="hinduism">🕉️ Hinduism</option>
+                <option value="buddhism">☸️ Buddhism</option>
+                <option value="judaism">✡️ Judaism</option>
+                <option value="sikhism">🕊️ Sikhism</option>
+                <option value="jainism">🕉️ Jainism</option>
+                <option value="bahaism">⭐ Bahá'í Faith</option>
+                <option value="atheism">🚫 Atheism</option>
+                <option value="agnosticism">❓ Agnosticism</option>
+                <option value="other">🔮 Other</option>
+                <option value="prefer-not-to-say">🤐 Prefer not to say</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Marital Status</label>
+              <select class="form-select form-select-no-search" id="maritalStatus" name="maritalStatus">
+                <option value="">Choose marital status</option>
+                <option value="single">💙 Single</option>
+                <option value="married">💍 Married</option>
+                <option value="divorced">💔 Divorced</option>
+                <option value="widowed">🕊️ Widowed</option>
+                <option value="separated">🚫 Separated</option>
+                <option value="engaged">💒 Engaged</option>
+                <option value="in-relationship">💕 In a relationship</option>
+                <option value="prefer-not-to-say">🤐 Prefer not to say</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Select Multiple</label>
+              <select class="form-select-multi" id="multiSelect" name="skills" multiple>
+                <option value="html">🌐 HTML</option>
+                <option value="css">🎨 CSS</option>
+                <option value="javascript">⚡ JavaScript</option>
+                <option value="react">⚛️ React</option>
+                <option value="vue">💚 Vue.js</option>
+                <option value="angular">🔺 Angular</option>
+                <option value="node">🟢 Node.js</option>
+                <option value="python">🐍 Python</option>
+                <option value="php">🐘 PHP</option>
+                <option value="java">☕ Java</option>
+                <option value="sa">☕ Saikat</option>
+              </select>
+            </div>
+            
           </div>
         </div>
       </main>
@@ -933,6 +1114,9 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="assets/js/preloader.js"></script>
   <script src="assets/js/app.js"></script>
+  
+  <!-- Custom Date Picker JavaScript -->
+  <script src="assets/js/date-picker.js"></script>
 </body>
 </html>
 
